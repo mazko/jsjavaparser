@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../qunit/qunit-1.18.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="../qunit/qunit-1.18.0.js"></script>
+  <script src="../../lib/javaparser7.js"></script>
+  <script>
+    QUnit.dump.maxDepth = 100;
+
+    test("single local variable declararion", function(assert) {
+      var src = `
+        public class Test {
+          public static void main(String[] args) {
+                int a;
+                int b[];
+                List<?> c[];
+                Map<int[], List<?>> d;
+                Map<String, List<? extends Hello.World>> d;
+          }
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+                        {
+                            node: "Modifier",
+                            keyword: "public"
+                        }
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Test"
+                    },
+                    typeParameters: [],
+                    superclassType: null,
+                    superInterfaceTypes: [],
+                    bodyDeclarations: [
+                        {
+                            node: "MethodDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "public"
+                                },
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            constructor: false,
+                            typeParameters: [],
+                            returnType2: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "void"
+                            },
+                            name: {
+                                node: "SimpleName",
+                                identifier: "main"
+                            },
+                            parameters: [
+                                {
+                                    node: "SingleVariableDeclaration",
+                                    modifiers: [],
+                                    type: {
+                                        node: "ArrayType",
+                                        componentType: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "String"
+                                            }
+                                        }
+                                    },
+                                    varargs: false,
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "args"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                }
+                            ],
+                            extraDimensions: 0,
+                            thrownExceptions: [],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "a"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "b"
+                                                },
+                                                extraDimensions: 1,
+                                                initializer: null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "List"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "WildcardType",
+                                                    bound: null,
+                                                    upperBound: true
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "c"
+                                                },
+                                                extraDimensions: 1,
+                                                initializer: null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "Map"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "PrimitiveType",
+                                                        primitiveTypeCode: "int"
+                                                    }
+                                                },
+                                                {
+                                                    node: "ParameterizedType",
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "List"
+                                                        }
+                                                    },
+                                                    typeArguments: [
+                                                        {
+                                                            node: "WildcardType",
+                                                            bound: null,
+                                                            upperBound: true
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "d"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "Map"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "SimpleType",
+                                                    name: {
+                                                        node: "SimpleName",
+                                                        identifier: "String"
+                                                    }
+                                                },
+                                                {
+                                                    node: "ParameterizedType",
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "List"
+                                                        }
+                                                    },
+                                                    typeArguments: [
+                                                        {
+                                                            node: "WildcardType",
+                                                            bound: {
+                                                                node: "SimpleType",
+                                                                name: {
+                                                                    node: "QualifiedName",
+                                                                    qualifier: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "Hello"
+                                                                    },
+                                                                    name: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "World"
+                                                                    }
+                                                                }
+                                                            },
+                                                            upperBound: true
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "d"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: null
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+    test("local variable declararion ws initializer", function(assert) {
+      var src = `
+        public class Test {
+          public static void main(String[] args) {
+                int a = 42;
+                float a1 = 42, a2 = a1;
+                Object a2 = new Object();
+                Object a3 = new <T>Object();
+                Object a4 = new <T1,T2>Object();
+                @annotation Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                      // TODO Auto-generated method stub
+                      
+                    }
+                };
+                final Object[] b = new java.lang.Object[0];
+                final @annotation int b1[] = new int[]{0,1,2};
+                int b2[] = new int[5];
+                int b3[][] = new int[5][b1.length];
+                int b4[][][] = new int[5][6][];
+                List<?> c = new ArrayList<String>();
+                List<String> c1 = new java.util.ArrayList<>();
+                List<?> c[][] = new List<?>[][] {{new ArrayList<String>()}};
+                Map<int[], List<?>> d = null;
+                Map<String, List<? extends java.lang.String>> e = new HashMap<>();
+          }
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+                        {
+                            node: "Modifier",
+                            keyword: "public"
+                        }
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Test"
+                    },
+                    typeParameters: [],
+                    superclassType: null,
+                    superInterfaceTypes: [],
+                    bodyDeclarations: [
+                        {
+                            node: "MethodDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "public"
+                                },
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            constructor: false,
+                            typeParameters: [],
+                            returnType2: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "void"
+                            },
+                            name: {
+                                node: "SimpleName",
+                                identifier: "main"
+                            },
+                            parameters: [
+                                {
+                                    node: "SingleVariableDeclaration",
+                                    modifiers: [],
+                                    type: {
+                                        node: "ArrayType",
+                                        componentType: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "String"
+                                            }
+                                        }
+                                    },
+                                    varargs: false,
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "args"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                }
+                            ],
+                            extraDimensions: 0,
+                            thrownExceptions: [],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "a"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "NumberLiteral",
+                                                    token: "42"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "float"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "a1"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "NumberLiteral",
+                                                    token: "42"
+                                                }
+                                            },
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "a2"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "SimpleName",
+                                                    identifier: "a1"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Object"
+                                            }
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "a2"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ClassInstanceCreation",
+                                                    expression: null,
+                                                    typeArguments: [],
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "Object"
+                                                        }
+                                                    },
+                                                    arguments: [],
+                                                    anonymousClassDeclaration: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Object"
+                                            }
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "a3"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ClassInstanceCreation",
+                                                    expression: null,
+                                                    typeArguments: [
+                                                        {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "SimpleName",
+                                                                identifier: "T"
+                                                            }
+                                                        }
+                                                    ],
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "Object"
+                                                        }
+                                                    },
+                                                    arguments: [],
+                                                    anonymousClassDeclaration: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Object"
+                                            }
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "a4"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ClassInstanceCreation",
+                                                    expression: null,
+                                                    typeArguments: [
+                                                        {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "SimpleName",
+                                                                identifier: "T1"
+                                                            }
+                                                        },
+                                                        {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "SimpleName",
+                                                                identifier: "T2"
+                                                            }
+                                                        }
+                                                    ],
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "Object"
+                                                        }
+                                                    },
+                                                    arguments: [],
+                                                    anonymousClassDeclaration: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [
+                                            {
+                                                node: "MarkerAnnotation",
+                                                typeName: {
+                                                    node: "SimpleName",
+                                                    identifier: "annotation"
+                                                }
+                                            }
+                                        ],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Runnable"
+                                            }
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "r"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ClassInstanceCreation",
+                                                    expression: null,
+                                                    typeArguments: [],
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "Runnable"
+                                                        }
+                                                    },
+                                                    arguments: [],
+                                                    anonymousClassDeclaration: {
+                                                        node: "AnonymousClassDeclaration",
+                                                        bodyDeclarations: [
+                                                            {
+                                                                node: "MethodDeclaration",
+                                                                modifiers: [
+                                                                    {
+                                                                        node: "MarkerAnnotation",
+                                                                        typeName: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "Override"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        node: "Modifier",
+                                                                        keyword: "public"
+                                                                    }
+                                                                ],
+                                                                constructor: false,
+                                                                typeParameters: [],
+                                                                returnType2: {
+                                                                    node: "PrimitiveType",
+                                                                    primitiveTypeCode: "void"
+                                                                },
+                                                                name: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "run"
+                                                                },
+                                                                parameters: [],
+                                                                extraDimensions: 0,
+                                                                thrownExceptions: [],
+                                                                body: {
+                                                                    node: "Block",
+                                                                    statements: []
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [
+                                            {
+                                                node: "Modifier",
+                                                keyword: "final"
+                                            }
+                                        ],
+                                        type: {
+                                            node: "ArrayType",
+                                            componentType: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "Object"
+                                                }
+                                            }
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "b"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ArrayCreation",
+                                                    type: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "QualifiedName",
+                                                                qualifier: {
+                                                                    node: "QualifiedName",
+                                                                    qualifier: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "java"
+                                                                    },
+                                                                    name: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "lang"
+                                                                    }
+                                                                },
+                                                                name: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "Object"
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    dimensions: [
+                                                        {
+                                                            node: "NumberLiteral",
+                                                            token: "0"
+                                                        }
+                                                    ],
+                                                    initializer: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [
+                                            {
+                                                node: "Modifier",
+                                                keyword: "final"
+                                            },
+                                            {
+                                                node: "MarkerAnnotation",
+                                                typeName: {
+                                                    node: "SimpleName",
+                                                    identifier: "annotation"
+                                                }
+                                            }
+                                        ],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "b1"
+                                                },
+                                                extraDimensions: 1,
+                                                initializer: {
+                                                    node: "ArrayCreation",
+                                                    type: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "PrimitiveType",
+                                                            primitiveTypeCode: "int"
+                                                        }
+                                                    },
+                                                    dimensions: [],
+                                                    initializer: {
+                                                        node: "ArrayInitializer",
+                                                        expressions: [
+                                                            {
+                                                                node: "NumberLiteral",
+                                                                token: "0"
+                                                            },
+                                                            {
+                                                                node: "NumberLiteral",
+                                                                token: "1"
+                                                            },
+                                                            {
+                                                                node: "NumberLiteral",
+                                                                token: "2"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "b2"
+                                                },
+                                                extraDimensions: 1,
+                                                initializer: {
+                                                    node: "ArrayCreation",
+                                                    type: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "PrimitiveType",
+                                                            primitiveTypeCode: "int"
+                                                        }
+                                                    },
+                                                    dimensions: [
+                                                        {
+                                                            node: "NumberLiteral",
+                                                            token: "5"
+                                                        }
+                                                    ],
+                                                    initializer: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "b3"
+                                                },
+                                                extraDimensions: 2,
+                                                initializer: {
+                                                    node: "ArrayCreation",
+                                                    type: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "ArrayType",
+                                                            componentType: {
+                                                                node: "PrimitiveType",
+                                                                primitiveTypeCode: "int"
+                                                            }
+                                                        }
+                                                    },
+                                                    dimensions: [
+                                                        {
+                                                            node: "NumberLiteral",
+                                                            token: "5"
+                                                        },
+                                                        {
+                                                            node: "QualifiedName",
+                                                            qualifier: {
+                                                                node: "SimpleName",
+                                                                identifier: "b1"
+                                                            },
+                                                            name: {
+                                                                node: "SimpleName",
+                                                                identifier: "length"
+                                                            }
+                                                        }
+                                                    ],
+                                                    initializer: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "b4"
+                                                },
+                                                extraDimensions: 3,
+                                                initializer: {
+                                                    node: "ArrayCreation",
+                                                    type: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "ArrayType",
+                                                            componentType: {
+                                                                node: "ArrayType",
+                                                                componentType: {
+                                                                    node: "PrimitiveType",
+                                                                    primitiveTypeCode: "int"
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    dimensions: [
+                                                        {
+                                                            node: "NumberLiteral",
+                                                            token: "5"
+                                                        },
+                                                        {
+                                                            node: "NumberLiteral",
+                                                            token: "6"
+                                                        }
+                                                    ],
+                                                    initializer: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "List"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "WildcardType",
+                                                    bound: null,
+                                                    upperBound: true
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "c"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ClassInstanceCreation",
+                                                    expression: null,
+                                                    typeArguments: [],
+                                                    type: {
+                                                        node: "ParameterizedType",
+                                                        type: {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "SimpleName",
+                                                                identifier: "ArrayList"
+                                                            }
+                                                        },
+                                                        typeArguments: [
+                                                            {
+                                                                node: "SimpleType",
+                                                                name: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "String"
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    arguments: [],
+                                                    anonymousClassDeclaration: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "List"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "SimpleType",
+                                                    name: {
+                                                        node: "SimpleName",
+                                                        identifier: "String"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "c1"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ClassInstanceCreation",
+                                                    expression: null,
+                                                    typeArguments: [],
+                                                    type: {
+                                                        node: "ParameterizedType",
+                                                        type: {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "QualifiedName",
+                                                                qualifier: {
+                                                                    node: "QualifiedName",
+                                                                    qualifier: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "java"
+                                                                    },
+                                                                    name: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "util"
+                                                                    }
+                                                                },
+                                                                name: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "ArrayList"
+                                                                }
+                                                            }
+                                                        },
+                                                        typeArguments: []
+                                                    },
+                                                    arguments: [],
+                                                    anonymousClassDeclaration: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "List"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "WildcardType",
+                                                    bound: null,
+                                                    upperBound: true
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "c"
+                                                },
+                                                extraDimensions: 2,
+                                                initializer: {
+                                                    node: "ArrayCreation",
+                                                    type: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "ArrayType",
+                                                            componentType: {
+                                                                node: "ParameterizedType",
+                                                                type: {
+                                                                    node: "SimpleType",
+                                                                    name: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "List"
+                                                                    }
+                                                                },
+                                                                typeArguments: [
+                                                                    {
+                                                                        node: "WildcardType",
+                                                                        bound: null,
+                                                                        upperBound: true
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    dimensions: [],
+                                                    initializer: {
+                                                        node: "ArrayInitializer",
+                                                        expressions: [
+                                                            {
+                                                                node: "ArrayInitializer",
+                                                                expressions: [
+                                                                    {
+                                                                        node: "ClassInstanceCreation",
+                                                                        expression: null,
+                                                                        typeArguments: [],
+                                                                        type: {
+                                                                            node: "ParameterizedType",
+                                                                            type: {
+                                                                                node: "SimpleType",
+                                                                                name: {
+                                                                                    node: "SimpleName",
+                                                                                    identifier: "ArrayList"
+                                                                                }
+                                                                            },
+                                                                            typeArguments: [
+                                                                                {
+                                                                                    node: "SimpleType",
+                                                                                    name: {
+                                                                                        node: "SimpleName",
+                                                                                        identifier: "String"
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        arguments: [],
+                                                                        anonymousClassDeclaration: null
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "Map"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "PrimitiveType",
+                                                        primitiveTypeCode: "int"
+                                                    }
+                                                },
+                                                {
+                                                    node: "ParameterizedType",
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "List"
+                                                        }
+                                                    },
+                                                    typeArguments: [
+                                                        {
+                                                            node: "WildcardType",
+                                                            bound: null,
+                                                            upperBound: true
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "d"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "NullLiteral"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "Map"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "SimpleType",
+                                                    name: {
+                                                        node: "SimpleName",
+                                                        identifier: "String"
+                                                    }
+                                                },
+                                                {
+                                                    node: "ParameterizedType",
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "List"
+                                                        }
+                                                    },
+                                                    typeArguments: [
+                                                        {
+                                                            node: "WildcardType",
+                                                            bound: {
+                                                                node: "SimpleType",
+                                                                name: {
+                                                                    node: "QualifiedName",
+                                                                    qualifier: {
+                                                                        node: "QualifiedName",
+                                                                        qualifier: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "java"
+                                                                        },
+                                                                        name: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "lang"
+                                                                        }
+                                                                    },
+                                                                    name: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "String"
+                                                                    }
+                                                                }
+                                                            },
+                                                            upperBound: true
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "e"
+                                                },
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ClassInstanceCreation",
+                                                    expression: null,
+                                                    typeArguments: [],
+                                                    type: {
+                                                        node: "ParameterizedType",
+                                                        type: {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "SimpleName",
+                                                                identifier: "HashMap"
+                                                            }
+                                                        },
+                                                        typeArguments: []
+                                                    },
+                                                    arguments: [],
+                                                    anonymousClassDeclaration: null
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+    test("class variable declararion mixed", function(assert) {
+      var src = `
+        public class Test {
+                private static int a;
+                static int b[];
+                List<?> c[];
+                Map<int[], List<?>> d;
+                Map<String, List<? extends Hello.World>> d;
+
+                int a = 42;
+                float a1 = 42, a2 = a1;
+                private Object a2 = new Object();
+                Object a3 = new <T>Object();
+                Object a4 = new <T1,T2>Object();
+                static private Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                      // TODO Auto-generated method stub
+                      
+                    }
+                };
+                Object[] b = new java.lang.Object[0];
+                int b1[] = new int[]{0,1,2};
+                int b2[] = new int[5];
+                int b3[][] = new int[5][b1.length];
+                int b4[][][] = new int[5][6][];
+                List<?> c = new ArrayList<String>();
+                List<String> c1 = new java.util.ArrayList<>();
+                List<?> c[][] = new List<?>[][] {{new ArrayList<String>()}};
+                Map<int[], List<?>> d = null;
+                Map<String, List<? extends java.lang.String>> e = new HashMap<>();
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+                        {
+                            node: "Modifier",
+                            keyword: "public"
+                        }
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Test"
+                    },
+                    typeParameters: [],
+                    superclassType: null,
+                    superInterfaceTypes: [],
+                    bodyDeclarations: [
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "private"
+                                },
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "a"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "b"
+                                    },
+                                    extraDimensions: 1,
+                                    initializer: null
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "List"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "WildcardType",
+                                        bound: null,
+                                        upperBound: true
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "c"
+                                    },
+                                    extraDimensions: 1,
+                                    initializer: null
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "Map"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "ArrayType",
+                                        componentType: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        }
+                                    },
+                                    {
+                                        node: "ParameterizedType",
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "List"
+                                            }
+                                        },
+                                        typeArguments: [
+                                            {
+                                                node: "WildcardType",
+                                                bound: null,
+                                                upperBound: true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "d"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "Map"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "SimpleType",
+                                        name: {
+                                            node: "SimpleName",
+                                            identifier: "String"
+                                        }
+                                    },
+                                    {
+                                        node: "ParameterizedType",
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "List"
+                                            }
+                                        },
+                                        typeArguments: [
+                                            {
+                                                node: "WildcardType",
+                                                bound: {
+                                                    node: "SimpleType",
+                                                    name: {
+                                                        node: "QualifiedName",
+                                                        qualifier: {
+                                                            node: "SimpleName",
+                                                            identifier: "Hello"
+                                                        },
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "World"
+                                                        }
+                                                    }
+                                                },
+                                                upperBound: true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "d"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "a"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "NumberLiteral",
+                                        token: "42"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "float"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "a1"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "NumberLiteral",
+                                        token: "42"
+                                    }
+                                },
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "a2"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "SimpleName",
+                                        identifier: "a1"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "private"
+                                }
+                            ],
+                            type: {
+                                node: "SimpleType",
+                                name: {
+                                    node: "SimpleName",
+                                    identifier: "Object"
+                                }
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "a2"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ClassInstanceCreation",
+                                        expression: null,
+                                        typeArguments: [],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Object"
+                                            }
+                                        },
+                                        arguments: [],
+                                        anonymousClassDeclaration: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "SimpleType",
+                                name: {
+                                    node: "SimpleName",
+                                    identifier: "Object"
+                                }
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "a3"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ClassInstanceCreation",
+                                        expression: null,
+                                        typeArguments: [
+                                            {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "T"
+                                                }
+                                            }
+                                        ],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Object"
+                                            }
+                                        },
+                                        arguments: [],
+                                        anonymousClassDeclaration: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "SimpleType",
+                                name: {
+                                    node: "SimpleName",
+                                    identifier: "Object"
+                                }
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "a4"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ClassInstanceCreation",
+                                        expression: null,
+                                        typeArguments: [
+                                            {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "T1"
+                                                }
+                                            },
+                                            {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "T2"
+                                                }
+                                            }
+                                        ],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Object"
+                                            }
+                                        },
+                                        arguments: [],
+                                        anonymousClassDeclaration: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                },
+                                {
+                                    node: "Modifier",
+                                    keyword: "private"
+                                }
+                            ],
+                            type: {
+                                node: "SimpleType",
+                                name: {
+                                    node: "SimpleName",
+                                    identifier: "Runnable"
+                                }
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "r"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ClassInstanceCreation",
+                                        expression: null,
+                                        typeArguments: [],
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "Runnable"
+                                            }
+                                        },
+                                        arguments: [],
+                                        anonymousClassDeclaration: {
+                                            node: "AnonymousClassDeclaration",
+                                            bodyDeclarations: [
+                                                {
+                                                    node: "MethodDeclaration",
+                                                    modifiers: [
+                                                        {
+                                                            node: "MarkerAnnotation",
+                                                            typeName: {
+                                                                node: "SimpleName",
+                                                                identifier: "Override"
+                                                            }
+                                                        },
+                                                        {
+                                                            node: "Modifier",
+                                                            keyword: "public"
+                                                        }
+                                                    ],
+                                                    constructor: false,
+                                                    typeParameters: [],
+                                                    returnType2: {
+                                                        node: "PrimitiveType",
+                                                        primitiveTypeCode: "void"
+                                                    },
+                                                    name: {
+                                                        node: "SimpleName",
+                                                        identifier: "run"
+                                                    },
+                                                    parameters: [],
+                                                    extraDimensions: 0,
+                                                    thrownExceptions: [],
+                                                    body: {
+                                                        node: "Block",
+                                                        statements: []
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ArrayType",
+                                componentType: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "Object"
+                                    }
+                                }
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "b"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ArrayCreation",
+                                        type: {
+                                            node: "ArrayType",
+                                            componentType: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "QualifiedName",
+                                                    qualifier: {
+                                                        node: "QualifiedName",
+                                                        qualifier: {
+                                                            node: "SimpleName",
+                                                            identifier: "java"
+                                                        },
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "lang"
+                                                        }
+                                                    },
+                                                    name: {
+                                                        node: "SimpleName",
+                                                        identifier: "Object"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        dimensions: [
+                                            {
+                                                node: "NumberLiteral",
+                                                token: "0"
+                                            }
+                                        ],
+                                        initializer: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "b1"
+                                    },
+                                    extraDimensions: 1,
+                                    initializer: {
+                                        node: "ArrayCreation",
+                                        type: {
+                                            node: "ArrayType",
+                                            componentType: {
+                                                node: "PrimitiveType",
+                                                primitiveTypeCode: "int"
+                                            }
+                                        },
+                                        dimensions: [],
+                                        initializer: {
+                                            node: "ArrayInitializer",
+                                            expressions: [
+                                                {
+                                                    node: "NumberLiteral",
+                                                    token: "0"
+                                                },
+                                                {
+                                                    node: "NumberLiteral",
+                                                    token: "1"
+                                                },
+                                                {
+                                                    node: "NumberLiteral",
+                                                    token: "2"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "b2"
+                                    },
+                                    extraDimensions: 1,
+                                    initializer: {
+                                        node: "ArrayCreation",
+                                        type: {
+                                            node: "ArrayType",
+                                            componentType: {
+                                                node: "PrimitiveType",
+                                                primitiveTypeCode: "int"
+                                            }
+                                        },
+                                        dimensions: [
+                                            {
+                                                node: "NumberLiteral",
+                                                token: "5"
+                                            }
+                                        ],
+                                        initializer: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "b3"
+                                    },
+                                    extraDimensions: 2,
+                                    initializer: {
+                                        node: "ArrayCreation",
+                                        type: {
+                                            node: "ArrayType",
+                                            componentType: {
+                                                node: "ArrayType",
+                                                componentType: {
+                                                    node: "PrimitiveType",
+                                                    primitiveTypeCode: "int"
+                                                }
+                                            }
+                                        },
+                                        dimensions: [
+                                            {
+                                                node: "NumberLiteral",
+                                                token: "5"
+                                            },
+                                            {
+                                                node: "QualifiedName",
+                                                qualifier: {
+                                                    node: "SimpleName",
+                                                    identifier: "b1"
+                                                },
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "length"
+                                                }
+                                            }
+                                        ],
+                                        initializer: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "b4"
+                                    },
+                                    extraDimensions: 3,
+                                    initializer: {
+                                        node: "ArrayCreation",
+                                        type: {
+                                            node: "ArrayType",
+                                            componentType: {
+                                                node: "ArrayType",
+                                                componentType: {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "PrimitiveType",
+                                                        primitiveTypeCode: "int"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        dimensions: [
+                                            {
+                                                node: "NumberLiteral",
+                                                token: "5"
+                                            },
+                                            {
+                                                node: "NumberLiteral",
+                                                token: "6"
+                                            }
+                                        ],
+                                        initializer: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "List"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "WildcardType",
+                                        bound: null,
+                                        upperBound: true
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "c"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ClassInstanceCreation",
+                                        expression: null,
+                                        typeArguments: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "ArrayList"
+                                                }
+                                            },
+                                            typeArguments: [
+                                                {
+                                                    node: "SimpleType",
+                                                    name: {
+                                                        node: "SimpleName",
+                                                        identifier: "String"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        arguments: [],
+                                        anonymousClassDeclaration: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "List"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "SimpleType",
+                                        name: {
+                                            node: "SimpleName",
+                                            identifier: "String"
+                                        }
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "c1"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ClassInstanceCreation",
+                                        expression: null,
+                                        typeArguments: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "QualifiedName",
+                                                    qualifier: {
+                                                        node: "QualifiedName",
+                                                        qualifier: {
+                                                            node: "SimpleName",
+                                                            identifier: "java"
+                                                        },
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "util"
+                                                        }
+                                                    },
+                                                    name: {
+                                                        node: "SimpleName",
+                                                        identifier: "ArrayList"
+                                                    }
+                                                }
+                                            },
+                                            typeArguments: []
+                                        },
+                                        arguments: [],
+                                        anonymousClassDeclaration: null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "List"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "WildcardType",
+                                        bound: null,
+                                        upperBound: true
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "c"
+                                    },
+                                    extraDimensions: 2,
+                                    initializer: {
+                                        node: "ArrayCreation",
+                                        type: {
+                                            node: "ArrayType",
+                                            componentType: {
+                                                node: "ArrayType",
+                                                componentType: {
+                                                    node: "ParameterizedType",
+                                                    type: {
+                                                        node: "SimpleType",
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "List"
+                                                        }
+                                                    },
+                                                    typeArguments: [
+                                                        {
+                                                            node: "WildcardType",
+                                                            bound: null,
+                                                            upperBound: true
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        dimensions: [],
+                                        initializer: {
+                                            node: "ArrayInitializer",
+                                            expressions: [
+                                                {
+                                                    node: "ArrayInitializer",
+                                                    expressions: [
+                                                        {
+                                                            node: "ClassInstanceCreation",
+                                                            expression: null,
+                                                            typeArguments: [],
+                                                            type: {
+                                                                node: "ParameterizedType",
+                                                                type: {
+                                                                    node: "SimpleType",
+                                                                    name: {
+                                                                        node: "SimpleName",
+                                                                        identifier: "ArrayList"
+                                                                    }
+                                                                },
+                                                                typeArguments: [
+                                                                    {
+                                                                        node: "SimpleType",
+                                                                        name: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "String"
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            },
+                                                            arguments: [],
+                                                            anonymousClassDeclaration: null
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "Map"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "ArrayType",
+                                        componentType: {
+                                            node: "PrimitiveType",
+                                            primitiveTypeCode: "int"
+                                        }
+                                    },
+                                    {
+                                        node: "ParameterizedType",
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "List"
+                                            }
+                                        },
+                                        typeArguments: [
+                                            {
+                                                node: "WildcardType",
+                                                bound: null,
+                                                upperBound: true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "d"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "NullLiteral"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [],
+                            type: {
+                                node: "ParameterizedType",
+                                type: {
+                                    node: "SimpleType",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "Map"
+                                    }
+                                },
+                                typeArguments: [
+                                    {
+                                        node: "SimpleType",
+                                        name: {
+                                            node: "SimpleName",
+                                            identifier: "String"
+                                        }
+                                    },
+                                    {
+                                        node: "ParameterizedType",
+                                        type: {
+                                            node: "SimpleType",
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "List"
+                                            }
+                                        },
+                                        typeArguments: [
+                                            {
+                                                node: "WildcardType",
+                                                bound: {
+                                                    node: "SimpleType",
+                                                    name: {
+                                                        node: "QualifiedName",
+                                                        qualifier: {
+                                                            node: "QualifiedName",
+                                                            qualifier: {
+                                                                node: "SimpleName",
+                                                                identifier: "java"
+                                                            },
+                                                            name: {
+                                                                node: "SimpleName",
+                                                                identifier: "lang"
+                                                            }
+                                                        },
+                                                        name: {
+                                                            node: "SimpleName",
+                                                            identifier: "String"
+                                                        }
+                                                    }
+                                                },
+                                                upperBound: true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "e"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: {
+                                        node: "ClassInstanceCreation",
+                                        expression: null,
+                                        typeArguments: [],
+                                        type: {
+                                            node: "ParameterizedType",
+                                            type: {
+                                                node: "SimpleType",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "HashMap"
+                                                }
+                                            },
+                                            typeArguments: []
+                                        },
+                                        arguments: [],
+                                        anonymousClassDeclaration: null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+  </script>
+</body>
+</html>

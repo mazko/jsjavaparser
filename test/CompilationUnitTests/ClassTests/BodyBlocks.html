@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../qunit/qunit-1.18.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="../../qunit/qunit-1.18.0.js"></script>
+  <script src="../../../lib/javaparser7.js"></script>
+  <script>
+    QUnit.dump.maxDepth = 100;
+
+    test("class body ws semi", function(assert) {
+      var src = "class Hello {;}";
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [
+
+            ],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Hello"
+                    },
+                    typeParameters: [
+
+                    ],
+                    superclassType: null,
+                    superInterfaceTypes: [
+
+                    ],
+                    bodyDeclarations: [
+
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+    test("class inner static empty block", function(assert) {
+      var src = `
+        class Z {
+          static { }
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [
+
+            ],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Z"
+                    },
+                    typeParameters: [
+
+                    ],
+                    superclassType: null,
+                    superInterfaceTypes: [
+
+                    ],
+                    bodyDeclarations: [
+                        {
+                            node: "Initializer",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            body: {
+                                node: "Block",
+                                statements: [
+
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+    test("class inner static block ws semi", function(assert) {
+      var src = `
+        class Z {
+          static { ; }
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [
+
+            ],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Z"
+                    },
+                    typeParameters: [
+
+                    ],
+                    superclassType: null,
+                    superInterfaceTypes: [
+
+                    ],
+                    bodyDeclarations: [
+                        {
+                            node: "Initializer",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "EmptyStatement"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+    test("class inner empty block", function(assert) {
+      var src = `
+        class Z {
+          { }
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [
+
+            ],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Z"
+                    },
+                    typeParameters: [
+
+                    ],
+                    superclassType: null,
+                    superInterfaceTypes: [
+
+                    ],
+                    bodyDeclarations: [
+                        {
+                            node: "Initializer",
+                            modifiers: [
+
+                            ],
+                            body: {
+                                node: "Block",
+                                statements: [
+
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+    test("class inner block ws semi", function(assert) {
+      var src = `
+        class Z {
+          { ;}
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [
+
+            ],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [
+
+                    ],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "Z"
+                    },
+                    typeParameters: [
+
+                    ],
+                    superclassType: null,
+                    superInterfaceTypes: [
+
+                    ],
+                    bodyDeclarations: [
+                        {
+                            node: "Initializer",
+                            modifiers: [
+
+                            ],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "EmptyStatement"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+
+    test("class inner static block ws code", function(assert) {
+      var src = `
+        class UA {
+          static { i = j + 2; }
+          static int i, j;
+          static { j = 4; }
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "UA"
+                    },
+                    typeParameters: [],
+                    superclassType: null,
+                    superInterfaceTypes: [],
+                    bodyDeclarations: [
+                        {
+                            node: "Initializer",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "i"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "InfixExpression",
+                                                leftOperand: {
+                                                    node: "SimpleName",
+                                                    identifier: "j"
+                                                },
+                                                operator: "+",
+                                                rightOperand: {
+                                                    node: "NumberLiteral",
+                                                    token: "2"
+                                                },
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            node: "FieldDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            type: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "int"
+                            },
+                            fragments: [
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "i"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                },
+                                {
+                                    node: "VariableDeclarationFragment",
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "j"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                }
+                            ]
+                        },
+                        {
+                            node: "Initializer",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "j"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "NumberLiteral",
+                                                token: "4"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+    test("class inner static block ws inner block ws code", function(assert) {
+      var src = `
+        class UA {
+          static { i = j - 1 -2 -3 - 4 -5 + 6 + 7 + 8 * 5 * 7 * 42; }
+        }
+      `;
+      assert.deepEqual(
+        JavaParser.parse(src)
+        ,
+        {
+            node: "CompilationUnit",
+            package: null,
+            imports: [],
+            types: [
+                {
+                    node: "TypeDeclaration",
+                    modifiers: [],
+                    interface: false,
+                    name: {
+                        node: "SimpleName",
+                        identifier: "UA"
+                    },
+                    typeParameters: [],
+                    superclassType: null,
+                    superInterfaceTypes: [],
+                    bodyDeclarations: [
+                        {
+                            node: "Initializer",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
+                                }
+                            ],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "i"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "InfixExpression",
+                                                leftOperand: {
+                                                    node: "InfixExpression",
+                                                    leftOperand: {
+                                                        node: "InfixExpression",
+                                                        leftOperand: {
+                                                            node: "InfixExpression",
+                                                            leftOperand: {
+                                                                node: "InfixExpression",
+                                                                leftOperand: {
+                                                                    node: "InfixExpression",
+                                                                    leftOperand: {
+                                                                        node: "InfixExpression",
+                                                                        leftOperand: {
+                                                                            node: "InfixExpression",
+                                                                            leftOperand: {
+                                                                                node: "SimpleName",
+                                                                                identifier: "j"
+                                                                            },
+                                                                            operator: "-",
+                                                                            rightOperand: {
+                                                                                node: "NumberLiteral",
+                                                                                token: "1"
+                                                                            },
+                                                                        },
+                                                                        operator: "-",
+                                                                        rightOperand: {
+                                                                            node: "NumberLiteral",
+                                                                            token: "2"
+                                                                        },
+                                                                    },
+                                                                    operator: "-",
+                                                                    rightOperand: {
+                                                                        node: "NumberLiteral",
+                                                                        token: "3"
+                                                                    },
+                                                                },
+                                                                operator: "-",
+                                                                rightOperand: {
+                                                                    node: "NumberLiteral",
+                                                                    token: "4"
+                                                                },
+                                                            },
+                                                            operator: "-",
+                                                            rightOperand: {
+                                                                node: "NumberLiteral",
+                                                                token: "5"
+                                                            },
+                                                        },
+                                                        operator: "+",
+                                                        rightOperand: {
+                                                            node: "NumberLiteral",
+                                                            token: "6"
+                                                        },
+                                                    },
+                                                    operator: "+",
+                                                    rightOperand: {
+                                                        node: "NumberLiteral",
+                                                        token: "7"
+                                                    },
+                                                },
+                                                operator: "+",
+                                                rightOperand: {
+                                                    node: "InfixExpression",
+                                                    leftOperand: {
+                                                        node: "InfixExpression",
+                                                        leftOperand: {
+                                                            node: "InfixExpression",
+                                                            leftOperand: {
+                                                                node: "NumberLiteral",
+                                                                token: "8"
+                                                            },
+                                                            operator: "*",
+                                                            rightOperand: {
+                                                                node: "NumberLiteral",
+                                                                token: "5"
+                                                            },
+                                                        },
+                                                        operator: "*",
+                                                        rightOperand: {
+                                                            node: "NumberLiteral",
+                                                            token: "7"
+                                                        },
+                                                    },
+                                                    operator: "*",
+                                                    rightOperand: {
+                                                        node: "NumberLiteral",
+                                                        token: "42"
+                                                    },
+                                                },
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+      );
+    });
+
+  </script>
+</body>
+</html>
