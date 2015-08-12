@@ -8,6 +8,7 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../../qunit/qunit-1.18.0.js"></script>
+  <script src="../../qunit/multiline/browser.js"></script>
   <script src="../../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
@@ -51,10 +52,10 @@
     });
 
     test("empty class ws package", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         package hello;
         public class Hello {}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -104,10 +105,10 @@
     });
 
     test("empty class ws import", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         import hello;
         public class Hello {}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,

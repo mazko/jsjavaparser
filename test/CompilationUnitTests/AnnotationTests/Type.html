@@ -8,14 +8,15 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../../qunit/qunit-1.18.0.js"></script>
+  <script src="../../qunit/multiline/browser.js"></script>
   <script src="../../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
 
     test("marker annotation type", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @interface Preliminary {}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -45,9 +46,9 @@
     });
 
     test("marker annotation type ws semi", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @interface Preliminary {;}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -77,9 +78,9 @@
     });
 
     test("marker annotation type ws interface", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @interface Preliminary { private interface ITest {}}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -132,9 +133,9 @@
     });
 
     test("marker annotation type ws enum", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @interface Preliminary { private enum TestEnum {A,B}}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -212,9 +213,9 @@
     });
 
     test("marker annotation type ws enum", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @interface Preliminary { private class TestClass { final int i = 42; }}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -293,7 +294,7 @@
     });
 
     test("annotation type with several elements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @interface RequestForEnhancement {
             int id();
             // Unique ID number associated with RFE
@@ -303,7 +304,7 @@
             double pi = 3.14;
             // Date RFE was implemented
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -425,7 +426,7 @@
     });
 
     test("annotation type with default ws modifier", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public @interface RequestForEnhancement {
             @interface ClassPreamble {
                String author();
@@ -437,7 +438,7 @@
                String[] reviewers();
             }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -598,10 +599,10 @@
     });
 
     test("annotation type list", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @interface Ping { Pong value(); }
         @interface Pong { Ping value(); }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -678,7 +679,7 @@
     });
 
     test("annotation type generic enum", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         interface Formatter {}
 
         @interface PrettyPrinter {
@@ -689,7 +690,7 @@
             enum Level { BAD, INDIFFERENT, GOOD }
             Level value();
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -863,12 +864,12 @@
     });
 
     test("Complex Annotation Type Declaration", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Target(ElementType.METHOD)
         public @interface ReallyComplexAnnotation {
             public SimpleAnnotation value() default @SimpleAnnotation(a="..."); 
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -958,14 +959,14 @@
     });
 
     test("nested Annotation Type Declaration", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Target(ElementType.METHOD)
         public @interface ReallyComplexAnnotation {
             protected @interface InnerAnnotation {
                 public SimpleAnnotation value() default @SimpleAnnotation(a="..."); 
             } 
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,

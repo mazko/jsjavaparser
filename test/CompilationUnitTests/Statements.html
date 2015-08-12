@@ -8,12 +8,13 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../qunit/qunit-1.18.0.js"></script>
+  <script src="../qunit/multiline/browser.js"></script>
   <script src="../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
 
     test("block statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             {     
@@ -33,7 +34,7 @@
             }
          }
        }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -274,7 +275,7 @@
     });
 
     test("class statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           { private class World {} };
           static {
@@ -283,7 +284,7 @@
           }
           { public static class Hello1 {public enum Enum {}} }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -450,7 +451,7 @@
     });
 
     test("assert statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           { assert false; };
           { assert i % 3 == 2 : i; };
@@ -461,7 +462,7 @@
             }
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -658,7 +659,7 @@
     });
 
     test("for statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class Test {
           public static void main(String[] args) {
             for (int i = 0; i < 42; i++) System.out.println("hello"); 
@@ -669,14 +670,14 @@
               float i0 = (Integer)i.next();
             }
             for (; i++ < 42; ) { System.out.println("hello.world"); }
-            for (final Object o = new Object();/* expr */;/* expr */) {}
+            for (final Object o = new Object();/* expr *\/;/* expr *\/) {}
             for (;;) { System.out.println("hello.world"); }
 
             for (i = 0; i*=3*y;) { ; }
             for (i = 0, y =42; i < 42; i*=3*y) { System.out.println("hello"); }
           }
         }
-      `;
+      */}).replace(/\*\\\//g, '*/');
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1404,7 +1405,7 @@
     });
 
     test("enhanced for statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class Test {
           public static void main(String[] args) {
             for (float i : l) hello();
@@ -1412,7 +1413,7 @@
             for (final @ann List<String> i : x) { hello(); }
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1686,7 +1687,7 @@
     });
 
     test("while statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class Test {
           public static void main(String[] args) {
             while (i--) hello();
@@ -1697,7 +1698,7 @@
             golab1: while(true) {;}
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1881,7 +1882,7 @@
     });
 
     test("do while statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class Test {
           public static void main(String[] args) {
             do hello(); while (i--);
@@ -1891,7 +1892,7 @@
             golab1: do hello(); while (42);
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -2063,7 +2064,7 @@
     });
 
     test("try statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class Test {
           public static void main(String[] args) {
             try {
@@ -2099,7 +2100,7 @@
             }
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -2630,7 +2631,7 @@
     });
 
     test("try resource statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class Test {
           public static void main(String[] args) {
             try (BufferedReader br =
@@ -2683,7 +2684,7 @@
             }
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -3801,7 +3802,7 @@
     });
 
     test("try switch break continue return statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class Test {
           public static void main(String[] args) {
             switch(x){
@@ -3849,7 +3850,7 @@
             }
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -4182,7 +4183,7 @@
     });
 
     test("synchronized statements", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static synchronized void main(String[] args) {
             synchronized(org.Test.class) {
@@ -4209,7 +4210,7 @@
             }
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,

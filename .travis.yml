@@ -5,4 +5,4 @@ branches:
 
 language: node_js
 node_js:
-  - "iojs"
+  - "0.10"

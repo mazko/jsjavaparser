@@ -8,12 +8,13 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../qunit/qunit-1.18.0.js"></script>
+  <script src="../qunit/multiline/browser.js"></script>
   <script src="../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
 
     test("default class modifier", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         /*******************************************************************************
          * Copyright (c) 2000, 2014 IBM Corporation and others.
          * All rights reserved. This program and the accompanying materials
@@ -23,7 +24,7 @@
          *
          * Contributors:
          *     IBM Corporation - initial API and implementation
-         *******************************************************************************/
+         *******************************************************************************\/
         package org.eclipse.jdt.internal.corext.dom;
 
         import java.util.Iterator;
@@ -40,24 +41,24 @@
 
           /**
            * @deprecated to avoid deprecation warnings
-           */
+           *\/
           @Deprecated
           private static final int JLS3= AST.JLS3;
           /**
            * @deprecated to avoid deprecation warnings
-           */
+           *\/
           @Deprecated
           private static final int JLS4= AST.JLS4;
           
           /**
            * The string buffer into which the serialized representation of the AST is
            * written.
-           */
+           *\/
           protected StringBuffer fBuffer;
 
           /**
            * Creates a new AST printer.
-           */
+           *\/
           public ASTFlattener() {
             this.fBuffer= new StringBuffer();
           }
@@ -66,14 +67,14 @@
            * Returns the string accumulated in the visit.
            *
            * @return the serialized
-           */
+           *\/
           public String getResult() {
             return this.fBuffer.toString();
           }
 
           /**
            * Resets this printer so that it can be used again.
-           */
+           *\/
           public void reset() {
             this.fBuffer.setLength(0);
           }
@@ -99,7 +100,7 @@
            *
            * @param ext the list of modifier and annotation nodes
            * (element type: <code>IExtendedModifier</code>)
-           */
+           *\/
           private void printModifiers(List<IExtendedModifier> ext) {
             for (Iterator<IExtendedModifier> it= ext.iterator(); it.hasNext();) {
               ASTNode p= (ASTNode) it.next();
@@ -141,7 +142,7 @@
            * @param node node
            * @return component type
            * @deprecated to avoid deprecation warning
-           */
+           *\/
           @Deprecated
           private static Type getComponentType(ArrayType node) {
             return node.getComponentType();
@@ -151,7 +152,7 @@
            * @param node node
            * @return thrown exception names
            * @deprecated to avoid deprecation warning
-           */
+           *\/
           @Deprecated
           private static List<Name> getThrownExceptions(MethodDeclaration node) {
             return node.thrownExceptions();
@@ -160,7 +161,7 @@
           /*
            * @see ASTVisitor#visit(AnnotationTypeDeclaration)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(AnnotationTypeDeclaration node) {
             if (node.getJavadoc() != null) {
@@ -181,7 +182,7 @@
           /*
            * @see ASTVisitor#visit(AnnotationTypeMemberDeclaration)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(AnnotationTypeMemberDeclaration node) {
             if (node.getJavadoc() != null) {
@@ -202,7 +203,7 @@
 
           /*
            * @see ASTVisitor#visit(AnonymousClassDeclaration)
-           */
+           *\/
           @Override
           public boolean visit(AnonymousClassDeclaration node) {
             this.fBuffer.append("{");//$NON-NLS-1$
@@ -217,7 +218,7 @@
 
           /*
            * @see ASTVisitor#visit(ArrayAccess)
-           */
+           *\/
           @Override
           public boolean visit(ArrayAccess node) {
             node.getArray().accept(this);
@@ -229,7 +230,7 @@
 
           /*
            * @see ASTVisitor#visit(ArrayCreation)
-           */
+           *\/
           @Override
           public boolean visit(ArrayCreation node) {
             this.fBuffer.append("new ");//$NON-NLS-1$
@@ -256,7 +257,7 @@
 
           /*
            * @see ASTVisitor#visit(ArrayInitializer)
-           */
+           *\/
           @Override
           public boolean visit(ArrayInitializer node) {
             this.fBuffer.append("{");//$NON-NLS-1$
@@ -273,7 +274,7 @@
 
           /*
            * @see ASTVisitor#visit(ArrayType)
-           */
+           *\/
           @Override
           public boolean visit(ArrayType node) {
             if (node.getAST().apiLevel() < AST.JLS8) {
@@ -292,7 +293,7 @@
 
           /*
            * @see ASTVisitor#visit(AssertStatement)
-           */
+           *\/
           @Override
           public boolean visit(AssertStatement node) {
             this.fBuffer.append("assert ");//$NON-NLS-1$
@@ -307,7 +308,7 @@
 
           /*
            * @see ASTVisitor#visit(Assignment)
-           */
+           *\/
           @Override
           public boolean visit(Assignment node) {
             node.getLeftHandSide().accept(this);
@@ -318,7 +319,7 @@
 
           /*
            * @see ASTVisitor#visit(Block)
-           */
+           *\/
           @Override
           public boolean visit(Block node) {
             this.fBuffer.append("{");//$NON-NLS-1$
@@ -333,16 +334,16 @@
           /*
            * @see ASTVisitor#visit(BlockComment)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(BlockComment node) {
-            this.fBuffer.append("/* */");//$NON-NLS-1$
+            this.fBuffer.append("/* *\/");//$NON-NLS-1$
             return false;
           }
 
           /*
            * @see ASTVisitor#visit(BooleanLiteral)
-           */
+           *\/
           @Override
           public boolean visit(BooleanLiteral node) {
             if (node.booleanValue() == true) {
@@ -355,7 +356,7 @@
 
           /*
            * @see ASTVisitor#visit(BreakStatement)
-           */
+           *\/
           @Override
           public boolean visit(BreakStatement node) {
             this.fBuffer.append("break");//$NON-NLS-1$
@@ -369,7 +370,7 @@
 
           /*
            * @see ASTVisitor#visit(CastExpression)
-           */
+           *\/
           @Override
           public boolean visit(CastExpression node) {
             this.fBuffer.append("(");//$NON-NLS-1$
@@ -381,7 +382,7 @@
 
           /*
            * @see ASTVisitor#visit(CatchClause)
-           */
+           *\/
           @Override
           public boolean visit(CatchClause node) {
             this.fBuffer.append("catch (");//$NON-NLS-1$
@@ -393,7 +394,7 @@
 
           /*
            * @see ASTVisitor#visit(CharacterLiteral)
-           */
+           *\/
           @Override
           public boolean visit(CharacterLiteral node) {
             this.fBuffer.append(node.getEscapedValue());
@@ -402,7 +403,7 @@
 
           /*
            * @see ASTVisitor#visit(ClassInstanceCreation)
-           */
+           *\/
           @Override
           public boolean visit(ClassInstanceCreation node) {
             if (node.getExpression() != null) {
@@ -441,7 +442,7 @@
 
           /*
            * @see ASTVisitor#visit(CompilationUnit)
-           */
+           *\/
           @Override
           public boolean visit(CompilationUnit node) {
             if (node.getPackage() != null) {
@@ -460,7 +461,7 @@
 
           /*
            * @see ASTVisitor#visit(ConditionalExpression)
-           */
+           *\/
           @Override
           public boolean visit(ConditionalExpression node) {
             node.getExpression().accept(this);
@@ -473,7 +474,7 @@
 
           /*
            * @see ASTVisitor#visit(ConstructorInvocation)
-           */
+           *\/
           @Override
           public boolean visit(ConstructorInvocation node) {
             if (node.getAST().apiLevel() >= JLS3) {
@@ -503,7 +504,7 @@
 
           /*
            * @see ASTVisitor#visit(ContinueStatement)
-           */
+           *\/
           @Override
           public boolean visit(ContinueStatement node) {
             this.fBuffer.append("continue");//$NON-NLS-1$
@@ -517,7 +518,7 @@
           
           /*
            * @see ASTVisitor#visit(CreationReference)
-           */
+           *\/
           @Override
           public boolean visit(CreationReference node) {
             node.getType().accept(this);
@@ -528,7 +529,7 @@
 
           /*
            * @see ASTVisitor#visit(Dimension)
-           */
+           *\/
           @Override
           public boolean visit(Dimension node) {
             this.fBuffer.append(" ");//$NON-NLS-1$
@@ -539,7 +540,7 @@
 
           /*
            * @see ASTVisitor#visit(DoStatement)
-           */
+           *\/
           @Override
           public boolean visit(DoStatement node) {
             this.fBuffer.append("do ");//$NON-NLS-1$
@@ -552,7 +553,7 @@
 
           /*
            * @see ASTVisitor#visit(EmptyStatement)
-           */
+           *\/
           @Override
           public boolean visit(EmptyStatement node) {
             this.fBuffer.append(";");//$NON-NLS-1$
@@ -562,7 +563,7 @@
           /*
            * @see ASTVisitor#visit(EnhancedForStatement)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(EnhancedForStatement node) {
             this.fBuffer.append("for (");//$NON-NLS-1$
@@ -577,7 +578,7 @@
           /*
            * @see ASTVisitor#visit(EnumConstantDeclaration)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(EnumConstantDeclaration node) {
             if (node.getJavadoc() != null) {
@@ -605,7 +606,7 @@
           /*
            * @see ASTVisitor#visit(EnumDeclaration)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(EnumDeclaration node) {
             if (node.getJavadoc() != null) {
@@ -650,7 +651,7 @@
 
           /*
            * @see ASTVisitor#visit(ExpressionMethodReference)
-           */
+           *\/
           @Override
           public boolean visit(ExpressionMethodReference node) {
             node.getExpression().accept(this);
@@ -661,7 +662,7 @@
 
           /*
            * @see ASTVisitor#visit(ExpressionStatement)
-           */
+           *\/
           @Override
           public boolean visit(ExpressionStatement node) {
             node.getExpression().accept(this);
@@ -671,7 +672,7 @@
 
           /*
            * @see ASTVisitor#visit(FieldAccess)
-           */
+           *\/
           @Override
           public boolean visit(FieldAccess node) {
             node.getExpression().accept(this);
@@ -682,7 +683,7 @@
 
           /*
            * @see ASTVisitor#visit(FieldDeclaration)
-           */
+           *\/
           @Override
           public boolean visit(FieldDeclaration node) {
             if (node.getJavadoc() != null) {
@@ -706,7 +707,7 @@
 
           /*
            * @see ASTVisitor#visit(ForStatement)
-           */
+           *\/
           @Override
           public boolean visit(ForStatement node) {
             this.fBuffer.append("for (");//$NON-NLS-1$
@@ -730,7 +731,7 @@
 
           /*
            * @see ASTVisitor#visit(IfStatement)
-           */
+           *\/
           @Override
           public boolean visit(IfStatement node) {
             this.fBuffer.append("if (");//$NON-NLS-1$
@@ -746,7 +747,7 @@
 
           /*
            * @see ASTVisitor#visit(ImportDeclaration)
-           */
+           *\/
           @Override
           public boolean visit(ImportDeclaration node) {
             this.fBuffer.append("import ");//$NON-NLS-1$
@@ -765,7 +766,7 @@
 
           /*
            * @see ASTVisitor#visit(InfixExpression)
-           */
+           *\/
           @Override
           public boolean visit(InfixExpression node) {
             node.getLeftOperand().accept(this);
@@ -787,7 +788,7 @@
 
           /*
            * @see ASTVisitor#visit(Initializer)
-           */
+           *\/
           @Override
           public boolean visit(Initializer node) {
             if (node.getJavadoc() != null) {
@@ -802,7 +803,7 @@
 
           /*
            * @see ASTVisitor#visit(InstanceofExpression)
-           */
+           *\/
           @Override
           public boolean visit(InstanceofExpression node) {
             node.getLeftOperand().accept(this);
@@ -813,7 +814,7 @@
 
           /*
            * @see ASTVisitor#visit(IntersectionType)
-           */
+           *\/
           @Override
           public boolean visit(IntersectionType node) {
             for (Iterator<Type> it = node.types().iterator(); it.hasNext(); ) {
@@ -828,7 +829,7 @@
 
           /*
            * @see ASTVisitor#visit(Javadoc)
-           */
+           *\/
           @Override
           public boolean visit(Javadoc node) {
             this.fBuffer.append("/** ");//$NON-NLS-1$
@@ -836,13 +837,13 @@
               ASTNode e= it.next();
               e.accept(this);
             }
-            this.fBuffer.append("\\n */");//$NON-NLS-1$
+            this.fBuffer.append("\n *\/");//$NON-NLS-1$
             return false;
           }
 
           /*
            * @see ASTVisitor#visit(LabeledStatement)
-           */
+           *\/
           @Override
           public boolean visit(LabeledStatement node) {
             node.getLabel().accept(this);
@@ -853,7 +854,7 @@
 
           /*
            * @see ASTVisitor#visit(LambdaExpression)
-           */
+           *\/
           @Override
           public boolean visit(LambdaExpression node) {
             boolean hasParentheses= node.hasParentheses();
@@ -876,17 +877,17 @@
           /*
            * @see ASTVisitor#visit(LineComment)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(LineComment node) {
-            this.fBuffer.append("//\\n");//$NON-NLS-1$
+            this.fBuffer.append("//\n");//$NON-NLS-1$
             return false;
           }
 
           /*
            * @see ASTVisitor#visit(MarkerAnnotation)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(MarkerAnnotation node) {
             this.fBuffer.append("@");//$NON-NLS-1$
@@ -897,7 +898,7 @@
           /*
            * @see ASTVisitor#visit(MemberRef)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(MemberRef node) {
             if (node.getQualifier() != null) {
@@ -911,7 +912,7 @@
           /*
            * @see ASTVisitor#visit(MemberValuePair)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(MemberValuePair node) {
             node.getName().accept(this);
@@ -923,7 +924,7 @@
           /*
            * @see ASTVisitor#visit(MethodRef)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(MethodRef node) {
             if (node.getQualifier() != null) {
@@ -946,7 +947,7 @@
           /*
            * @see ASTVisitor#visit(MethodRefParameter)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(MethodRefParameter node) {
             node.getType().accept(this);
@@ -964,7 +965,7 @@
 
           /*
            * @see ASTVisitor#visit(MethodDeclaration)
-           */
+           *\/
           @Override
           public boolean visit(MethodDeclaration node) {
             if (node.getJavadoc() != null) {
@@ -1052,7 +1053,7 @@
 
           /*
            * @see ASTVisitor#visit(MethodInvocation)
-           */
+           *\/
           @Override
           public boolean visit(MethodInvocation node) {
             if (node.getExpression() != null) {
@@ -1088,7 +1089,7 @@
           /*
            * @see ASTVisitor#visit(Modifier)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(Modifier node) {
             this.fBuffer.append(node.getKeyword().toString());
@@ -1097,7 +1098,7 @@
 
           /*
            * @see ASTVisitor#visit(NameQualifiedType)
-           */
+           *\/
           @Override
           public boolean visit(NameQualifiedType node) {
             node.getQualifier().accept(this);
@@ -1110,7 +1111,7 @@
           /*
            * @see ASTVisitor#visit(NormalAnnotation)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(NormalAnnotation node) {
             this.fBuffer.append("@");//$NON-NLS-1$
@@ -1129,7 +1130,7 @@
 
           /*
            * @see ASTVisitor#visit(NullLiteral)
-           */
+           *\/
           @Override
           public boolean visit(NullLiteral node) {
             this.fBuffer.append("null");//$NON-NLS-1$
@@ -1138,7 +1139,7 @@
 
           /*
            * @see ASTVisitor#visit(NumberLiteral)
-           */
+           *\/
           @Override
           public boolean visit(NumberLiteral node) {
             this.fBuffer.append(node.getToken());
@@ -1147,7 +1148,7 @@
 
           /*
            * @see ASTVisitor#visit(PackageDeclaration)
-           */
+           *\/
           @Override
           public boolean visit(PackageDeclaration node) {
             if (node.getAST().apiLevel() >= JLS3) {
@@ -1169,7 +1170,7 @@
           /*
            * @see ASTVisitor#visit(ParameterizedType)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(ParameterizedType node) {
             node.getType().accept(this);
@@ -1187,7 +1188,7 @@
 
           /*
            * @see ASTVisitor#visit(ParenthesizedExpression)
-           */
+           *\/
           @Override
           public boolean visit(ParenthesizedExpression node) {
             this.fBuffer.append("(");//$NON-NLS-1$
@@ -1198,7 +1199,7 @@
 
           /*
            * @see ASTVisitor#visit(PostfixExpression)
-           */
+           *\/
           @Override
           public boolean visit(PostfixExpression node) {
             node.getOperand().accept(this);
@@ -1208,7 +1209,7 @@
 
           /*
            * @see ASTVisitor#visit(PrefixExpression)
-           */
+           *\/
           @Override
           public boolean visit(PrefixExpression node) {
             this.fBuffer.append(node.getOperator().toString());
@@ -1218,7 +1219,7 @@
 
           /*
            * @see ASTVisitor#visit(PrimitiveType)
-           */
+           *\/
           @Override
           public boolean visit(PrimitiveType node) {
             printTypeAnnotations(node);
@@ -1228,7 +1229,7 @@
 
           /*
            * @see ASTVisitor#visit(QualifiedName)
-           */
+           *\/
           @Override
           public boolean visit(QualifiedName node) {
             node.getQualifier().accept(this);
@@ -1240,7 +1241,7 @@
           /*
            * @see ASTVisitor#visit(QualifiedType)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(QualifiedType node) {
             node.getQualifier().accept(this);
@@ -1252,7 +1253,7 @@
 
           /*
            * @see ASTVisitor#visit(ReturnStatement)
-           */
+           *\/
           @Override
           public boolean visit(ReturnStatement node) {
             this.fBuffer.append("return");//$NON-NLS-1$
@@ -1266,7 +1267,7 @@
 
           /*
            * @see ASTVisitor#visit(SimpleName)
-           */
+           *\/
           @Override
           public boolean visit(SimpleName node) {
             this.fBuffer.append(node.getIdentifier());
@@ -1275,7 +1276,7 @@
 
           /*
            * @see ASTVisitor#visit(SimpleType)
-           */
+           *\/
           @Override
           public boolean visit(SimpleType node) {
             printTypeAnnotations(node);
@@ -1286,7 +1287,7 @@
           /*
            * @see ASTVisitor#visit(SingleMemberAnnotation)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(SingleMemberAnnotation node) {
             this.fBuffer.append("@");//$NON-NLS-1$
@@ -1299,7 +1300,7 @@
 
           /*
            * @see ASTVisitor#visit(SingleVariableDeclaration)
-           */
+           *\/
           @Override
           public boolean visit(SingleVariableDeclaration node) {
             if (node.getAST().apiLevel() >= JLS3) {
@@ -1338,7 +1339,7 @@
 
           /*
            * @see ASTVisitor#visit(StringLiteral)
-           */
+           *\/
           @Override
           public boolean visit(StringLiteral node) {
             this.fBuffer.append(node.getEscapedValue());
@@ -1347,7 +1348,7 @@
 
           /*
            * @see ASTVisitor#visit(SuperConstructorInvocation)
-           */
+           *\/
           @Override
           public boolean visit(SuperConstructorInvocation node) {
             if (node.getExpression() != null) {
@@ -1381,7 +1382,7 @@
 
           /*
            * @see ASTVisitor#visit(SuperFieldAccess)
-           */
+           *\/
           @Override
           public boolean visit(SuperFieldAccess node) {
             if (node.getQualifier() != null) {
@@ -1395,7 +1396,7 @@
 
           /*
            * @see ASTVisitor#visit(SuperMethodInvocation)
-           */
+           *\/
           @Override
           public boolean visit(SuperMethodInvocation node) {
             if (node.getQualifier() != null) {
@@ -1431,7 +1432,7 @@
 
           /*
            * @see ASTVisitor#visit(SuperMethodReference)
-           */
+           *\/
           @Override
           public boolean visit(SuperMethodReference node) {
             if (node.getQualifier() != null) {
@@ -1446,7 +1447,7 @@
 
           /*
            * @see ASTVisitor#visit(SwitchCase)
-           */
+           *\/
           @Override
           public boolean visit(SwitchCase node) {
             if (node.isDefault()) {
@@ -1461,7 +1462,7 @@
 
           /*
            * @see ASTVisitor#visit(SwitchStatement)
-           */
+           *\/
           @Override
           public boolean visit(SwitchStatement node) {
             this.fBuffer.append("switch (");//$NON-NLS-1$
@@ -1478,7 +1479,7 @@
 
           /*
            * @see ASTVisitor#visit(SynchronizedStatement)
-           */
+           *\/
           @Override
           public boolean visit(SynchronizedStatement node) {
             this.fBuffer.append("synchronized (");//$NON-NLS-1$
@@ -1491,7 +1492,7 @@
           /*
            * @see ASTVisitor#visit(TagElement)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(TagElement node) {
             if (node.isNested()) {
@@ -1499,7 +1500,7 @@
               this.fBuffer.append("{");//$NON-NLS-1$
             } else {
               // top-level tags always begin on a new line
-              this.fBuffer.append("\\n * ");//$NON-NLS-1$
+              this.fBuffer.append("\n * ");//$NON-NLS-1$
             }
             boolean previousRequiresWhiteSpace= false;
             if (node.getTagName() != null) {
@@ -1513,7 +1514,7 @@
               // but Name, MemberRef, MethodRef, and nested TagElement do not include white space
               boolean currentIncludesWhiteSpace= (e instanceof TextElement);
               if (previousRequiresNewLine && currentIncludesWhiteSpace) {
-                this.fBuffer.append("\\n * ");//$NON-NLS-1$
+                this.fBuffer.append("\n * ");//$NON-NLS-1$
               }
               previousRequiresNewLine= currentIncludesWhiteSpace;
               // add space if required to separate
@@ -1532,7 +1533,7 @@
           /*
            * @see ASTVisitor#visit(TextElement)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(TextElement node) {
             this.fBuffer.append(node.getText());
@@ -1541,7 +1542,7 @@
 
           /*
            * @see ASTVisitor#visit(ThisExpression)
-           */
+           *\/
           @Override
           public boolean visit(ThisExpression node) {
             if (node.getQualifier() != null) {
@@ -1554,7 +1555,7 @@
 
           /*
            * @see ASTVisitor#visit(ThrowStatement)
-           */
+           *\/
           @Override
           public boolean visit(ThrowStatement node) {
             this.fBuffer.append("throw ");//$NON-NLS-1$
@@ -1565,7 +1566,7 @@
 
           /*
            * @see ASTVisitor#visit(TryStatement)
-           */
+           *\/
           @Override
           public boolean visit(TryStatement node) {
             this.fBuffer.append("try ");//$NON-NLS-1$
@@ -1597,7 +1598,7 @@
 
           /*
            * @see ASTVisitor#visit(TypeDeclaration)
-           */
+           *\/
           @Override
           public boolean visit(TypeDeclaration node) {
             if (node.getJavadoc() != null) {
@@ -1664,7 +1665,7 @@
 
           /*
            * @see ASTVisitor#visit(TypeDeclarationStatement)
-           */
+           *\/
           @Override
           public boolean visit(TypeDeclarationStatement node) {
             if (node.getAST().apiLevel() >= JLS3) {
@@ -1675,7 +1676,7 @@
 
           /*
            * @see ASTVisitor#visit(TypeLiteral)
-           */
+           *\/
           @Override
           public boolean visit(TypeLiteral node) {
             node.getType().accept(this);
@@ -1685,7 +1686,7 @@
 
           /*
            * @see ASTVisitor#visit(TypeMethodReference)
-           */
+           *\/
           @Override
           public boolean visit(TypeMethodReference node) {
             node.getType().accept(this);
@@ -1697,7 +1698,7 @@
           /*
            * @see ASTVisitor#visit(TypeParameter)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(TypeParameter node) {
             printModifiers(node.modifiers());
@@ -1717,7 +1718,7 @@
 
           /*
            * @see ASTVisitor#visit(UnionType)
-           */
+           *\/
           @Override
           public boolean visit(UnionType node) {
             for (Iterator<Type> it= node.types().iterator(); it.hasNext();) {
@@ -1732,7 +1733,7 @@
           
           /*
            * @see ASTVisitor#visit(VariableDeclarationExpression)
-           */
+           *\/
           @Override
           public boolean visit(VariableDeclarationExpression node) {
             if (node.getAST().apiLevel() >= JLS3) {
@@ -1752,7 +1753,7 @@
 
           /*
            * @see ASTVisitor#visit(VariableDeclarationFragment)
-           */
+           *\/
           @Override
           public boolean visit(VariableDeclarationFragment node) {
             node.getName().accept(this);
@@ -1776,7 +1777,7 @@
 
           /*
            * @see ASTVisitor#visit(VariableDeclarationStatement)
-           */
+           *\/
           @Override
           public boolean visit(VariableDeclarationStatement node) {
             if (node.getAST().apiLevel() >= JLS3) {
@@ -1797,7 +1798,7 @@
 
           /*
            * @see ASTVisitor#visit(WhileStatement)
-           */
+           *\/
           @Override
           public boolean visit(WhileStatement node) {
             this.fBuffer.append("while (");//$NON-NLS-1$
@@ -1810,7 +1811,7 @@
           /*
            * @see ASTVisitor#visit(WildcardType)
            * @since 3.0
-           */
+           *\/
           @Override
           public boolean visit(WildcardType node) {
             printTypeAnnotations(node);
@@ -1828,8 +1829,7 @@
           }
 
         }
-     
-      `;
+      */}).replace(/\*\\\//g, '*/');
       assert.deepEqual(
         JavaParser.parse(src)
         ,

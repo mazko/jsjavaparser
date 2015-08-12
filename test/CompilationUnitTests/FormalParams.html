@@ -8,12 +8,13 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../qunit/qunit-1.18.0.js"></script>
+  <script src="../qunit/multiline/browser.js"></script>
   <script src="../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
 
     test("intrface formal params", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         interface Test {
             void test();
             void test(int a);
@@ -24,7 +25,7 @@
             void test(double n, final int[]... g);
             void World(double n, final List<int[]>... g);
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -488,7 +489,7 @@
     });
 
     test("class formal params ws constructor", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         abstract class Test {
           Test() {
           }
@@ -531,7 +532,7 @@
           void World(double n, final List<int[]>... g) {
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,

@@ -8,12 +8,13 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../../qunit/qunit-1.18.0.js"></script>
+  <script src="../../qunit/multiline/browser.js"></script>
   <script src="../../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
 
     test("class body ws fields", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         private final class Test {
           int RED = 1, GREEN = 2, BLUE = 4;
           float f = j;
@@ -21,7 +22,7 @@
           final int k = k + 1;
           ;
        }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -189,7 +190,7 @@
     });
 
     test("class body ws methods", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         private final class Test {
           void world() { }
           void semi() throws A { ; }
@@ -203,7 +204,7 @@
           public abstract T[][] get (); 
           public abstract void set (K entity);
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -582,7 +583,7 @@
     });
 
     test("class body ws generic methods", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         private final class Test {
           protected final <T> void fromArrayToCollection(T[] a, Collection<T> c) {
            for (T o : a) {
@@ -595,7 +596,7 @@
           public abstract <T,K> T[][] get () throws Exception; 
           abstract <H,W> void set (H[][][] hello, W world); 
        }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1015,7 +1016,7 @@
     });
 
     test("class body ws constructor", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           Test() {} 
           Test(int i){
@@ -1027,7 +1028,7 @@
             y += ++i;
           }
        }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1264,7 +1265,7 @@
     });
 
     test("class body ws generic constructor", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class MyClass<X> {
           <T> MyClass(T t) {
           }
@@ -1272,7 +1273,7 @@
             ;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1392,13 +1393,13 @@
     });
 
     test("class body ws interface", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         abstract class MyClass {
           private interface Hello {
             void World();
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1469,13 +1470,13 @@
     });
 
     test("class body ws class", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class MyClass {
           final class Hello extends IHello {
             abstract void World();
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1557,11 +1558,11 @@
     });
 
     test("class body ws enum", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class MyClass {
           public final enum Season { WINTER, SPRING, SUMMER,  FALL }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1656,11 +1657,11 @@
     });
 
     test("class body ws annotation", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         public class MyClass {
           @interface Preliminary { private interface ITest {}}
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,

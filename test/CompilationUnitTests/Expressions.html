@@ -8,18 +8,19 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../qunit/qunit-1.18.0.js"></script>
+  <script src="../qunit/multiline/browser.js"></script>
   <script src="../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
 
     test("ExpressionStatement", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             println("hello");
           }
         }
-      `;
+        */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -119,7 +120,7 @@
     });
 
     test("Assignment Expression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             int min = - 2147483648;
@@ -179,7 +180,7 @@
             i += i *= i >>= 42*i ;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1313,7 +1314,7 @@
     });
 
     test("ConditionalExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               i = i > 42 ? 42 : -42;
@@ -1322,7 +1323,7 @@
               i += i > 42 ? y ? -1 : i != 42 ? --y : -42 : i++;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1613,7 +1614,7 @@
     });
 
     test("ConditionalOrExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               boolean i = i > 42 || y < 13;
@@ -1621,7 +1622,7 @@
               i = i > 42 ? true : i > -42 || y < 13;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -1858,7 +1859,7 @@
     });
 
     test("ConditionalAndExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               boolean i = i > 42 && y < 13;
@@ -1867,7 +1868,7 @@
               i = i > 42 ? true : i > -42 && y < 13;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -2151,7 +2152,7 @@
     });
 
     test("InclusiveOrExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               boolean i = i | 13;
@@ -2160,7 +2161,7 @@
               i = i > 42 ? true : i > -42 && i | 13 | y | 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -2460,7 +2461,7 @@
     });
 
     test("ExclusiveOrExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               boolean i = i ^ 13;
@@ -2469,7 +2470,7 @@
               i = i > 42 ? true : i > -42 && i | 13 | y ^ 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -2769,7 +2770,7 @@
     });
 
     test("AndExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               boolean i = i & 13;
@@ -2778,7 +2779,7 @@
               i = i > 42 ? true : i > -42 && i & 13 | y ^ 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -3078,7 +3079,7 @@
     });
 
     test("EqualityExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               boolean i = i == 13;
@@ -3089,7 +3090,7 @@
               i = i > 42 ? true : i > -42 && i & 13 != y ^ 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -3458,7 +3459,7 @@
     });
 
     test("RelationalExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               boolean i = i >= 13;
@@ -3475,7 +3476,7 @@
               i = i instanceof List instanceof Hello<Y>.World instanceof Object | 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -4105,7 +4106,7 @@
     });
 
     test("ShiftExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               int i = i >> 13;
@@ -4116,7 +4117,7 @@
               i = i > 42 || y < 13 && i | 13 >>> y << 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -4423,7 +4424,7 @@
     });
 
     test("AdditiveExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               int i = i + 13;
@@ -4435,7 +4436,7 @@
               i = i > 42 || y < 13 + i | 13 + y - 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -4765,7 +4766,7 @@
     });
 
     test("MultiplicativeExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               int i = i * 13;
@@ -4779,7 +4780,7 @@
               i = i > 42 % y < 13 * i | 13 + y / 42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -5167,7 +5168,7 @@
     });
 
     test("Prefix UnaryExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               --i;
@@ -5180,7 +5181,7 @@
               d = !d;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -5438,7 +5439,7 @@
     });
 
     test("Cast UnaryExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
               i = (int)d;
@@ -5446,7 +5447,7 @@
               i = ((double)hello.d) > 3.14 ? 42 : -42;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -5638,7 +5639,7 @@
     });
 
     test("Primary UnaryExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             new Object(); // Primary
@@ -5653,7 +5654,7 @@
             ++new String("hello").hashCode("hello").h.v().hello.world;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -6281,7 +6282,7 @@
     });
 
     test("Primary ParExpression", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             i = (i);
@@ -6290,7 +6291,7 @@
             if (i++) i--;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -6503,7 +6504,7 @@
     });
 
     test("Primary NonWildcardTypeArguments", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             <Integer>super();
@@ -6512,7 +6513,7 @@
             <Integer>this(a,b,c);
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -6670,7 +6671,7 @@
     });
 
     test("Primary this/super SuperSuffix", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             super();
@@ -6687,7 +6688,7 @@
             this.hello.world();
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -6991,7 +6992,7 @@
     });
 
     test("Primary NEW", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             new String();
@@ -7000,7 +7001,7 @@
             new String(new String(), 100);
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -7193,7 +7194,7 @@
     });
 
     test("Primary QualifiedIdentifierSuffix", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             c = Hello.World[].class;
@@ -7225,7 +7226,7 @@
             hello.world.new <String>World<Object>(42){};
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -8118,7 +8119,7 @@
     });
 
     test("Primary rest", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             c = Hello.World++;
@@ -8128,7 +8129,7 @@
             cls = void.class;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -8320,7 +8321,7 @@
     });
 
     test("Selector SuperSuffix", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             this.world(42);
@@ -8336,7 +8337,7 @@
             Outer.this.hello[42]++;
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -8758,7 +8759,7 @@
     });
 
     test("Expressions rest", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         class Test {
           public static void main(String[] args) {
             c = new byte[]{42};
@@ -8778,525 +8779,348 @@
             x(y, 42);
           }
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
-{
-    node: "CompilationUnit",
-    package: null,
-    imports: [],
-    types: [
         {
-            node: "TypeDeclaration",
-            modifiers: [],
-            interface: false,
-            name: {
-                node: "SimpleName",
-                identifier: "Test"
-            },
-            typeParameters: [],
-            superclassType: null,
-            superInterfaceTypes: [],
-            bodyDeclarations: [
+            node: "CompilationUnit",
+            package: null,
+            imports: [],
+            types: [
                 {
-                    node: "MethodDeclaration",
-                    modifiers: [
-                        {
-                            node: "Modifier",
-                            keyword: "public"
-                        },
-                        {
-                            node: "Modifier",
-                            keyword: "static"
-                        }
-                    ],
-                    constructor: false,
-                    typeParameters: [],
-                    returnType2: {
-                        node: "PrimitiveType",
-                        primitiveTypeCode: "void"
-                    },
+                    node: "TypeDeclaration",
+                    modifiers: [],
+                    interface: false,
                     name: {
                         node: "SimpleName",
-                        identifier: "main"
+                        identifier: "Test"
                     },
-                    parameters: [
+                    typeParameters: [],
+                    superclassType: null,
+                    superInterfaceTypes: [],
+                    bodyDeclarations: [
                         {
-                            node: "SingleVariableDeclaration",
-                            modifiers: [],
-                            type: {
-                                node: "ArrayType",
-                                componentType: {
-                                    node: "SimpleType",
-                                    name: {
-                                        node: "SimpleName",
-                                        identifier: "String"
-                                    }
+                            node: "MethodDeclaration",
+                            modifiers: [
+                                {
+                                    node: "Modifier",
+                                    keyword: "public"
+                                },
+                                {
+                                    node: "Modifier",
+                                    keyword: "static"
                                 }
+                            ],
+                            constructor: false,
+                            typeParameters: [],
+                            returnType2: {
+                                node: "PrimitiveType",
+                                primitiveTypeCode: "void"
                             },
-                            varargs: false,
                             name: {
                                 node: "SimpleName",
-                                identifier: "args"
+                                identifier: "main"
                             },
-                            extraDimensions: 0,
-                            initializer: null
-                        }
-                    ],
-                    extraDimensions: 0,
-                    thrownExceptions: [],
-                    body: {
-                        node: "Block",
-                        statements: [
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
-                                    },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
-                                        type: {
-                                            node: "ArrayType",
-                                            componentType: {
-                                                node: "PrimitiveType",
-                                                primitiveTypeCode: "byte"
-                                            }
-                                        },
-                                        dimensions: [],
-                                        initializer: {
-                                            node: "ArrayInitializer",
-                                            expressions: [
-                                                {
-                                                    node: "NumberLiteral",
-                                                    token: "42"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
-                                    },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
-                                        type: {
-                                            node: "ArrayType",
-                                            componentType: {
-                                                node: "PrimitiveType",
-                                                primitiveTypeCode: "short"
-                                            }
-                                        },
-                                        dimensions: [],
-                                        initializer: null
-                                    }
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
-                                    },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
-                                        type: {
-                                            node: "ArrayType",
-                                            componentType: {
-                                                node: "ArrayType",
-                                                componentType: {
-                                                    node: "PrimitiveType",
-                                                    primitiveTypeCode: "int"
-                                                }
-                                            }
-                                        },
-                                        dimensions: [
-                                            {
-                                                node: "NumberLiteral",
-                                                token: "5"
-                                            }
-                                        ],
-                                        initializer: null
-                                    }
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
-                                    },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
-                                        type: {
-                                            node: "ArrayType",
-                                            componentType: {
-                                                node: "ArrayType",
-                                                componentType: {
-                                                    node: "ArrayType",
-                                                    componentType: {
-                                                        node: "PrimitiveType",
-                                                        primitiveTypeCode: "long"
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        dimensions: [
-                                            {
-                                                node: "NumberLiteral",
-                                                token: "5"
-                                            },
-                                            {
-                                                node: "NumberLiteral",
-                                                token: "42"
-                                            }
-                                        ],
-                                        initializer: null
-                                    }
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
-                                    },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
-                                        type: {
-                                            node: "ArrayType",
-                                            componentType: {
-                                                node: "ArrayType",
-                                                componentType: {
-                                                    node: "ArrayType",
-                                                    componentType: {
-                                                        node: "PrimitiveType",
-                                                        primitiveTypeCode: "float"
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        dimensions: [
-                                            {
-                                                node: "NumberLiteral",
-                                                token: "5"
-                                            },
-                                            {
-                                                node: "NumberLiteral",
-                                                token: "42"
-                                            },
-                                            {
+                            parameters: [
+                                {
+                                    node: "SingleVariableDeclaration",
+                                    modifiers: [],
+                                    type: {
+                                        node: "ArrayType",
+                                        componentType: {
+                                            node: "SimpleType",
+                                            name: {
                                                 node: "SimpleName",
-                                                identifier: "x"
+                                                identifier: "String"
                                             }
-                                        ],
-                                        initializer: null
-                                    }
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
+                                        }
                                     },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
-                                        type: {
-                                            node: "ArrayType",
-                                            componentType: {
-                                                node: "ArrayType",
-                                                componentType: {
+                                    varargs: false,
+                                    name: {
+                                        node: "SimpleName",
+                                        identifier: "args"
+                                    },
+                                    extraDimensions: 0,
+                                    initializer: null
+                                }
+                            ],
+                            extraDimensions: 0,
+                            thrownExceptions: [],
+                            body: {
+                                node: "Block",
+                                statements: [
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "PrimitiveType",
+                                                        primitiveTypeCode: "byte"
+                                                    }
+                                                },
+                                                dimensions: [],
+                                                initializer: {
+                                                    node: "ArrayInitializer",
+                                                    expressions: [
+                                                        {
+                                                            node: "NumberLiteral",
+                                                            token: "42"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "PrimitiveType",
+                                                        primitiveTypeCode: "short"
+                                                    }
+                                                },
+                                                dimensions: [],
+                                                initializer: null
+                                            }
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
                                                     node: "ArrayType",
                                                     componentType: {
                                                         node: "ArrayType",
                                                         componentType: {
                                                             node: "PrimitiveType",
-                                                            primitiveTypeCode: "double"
+                                                            primitiveTypeCode: "int"
                                                         }
                                                     }
-                                                }
+                                                },
+                                                dimensions: [
+                                                    {
+                                                        node: "NumberLiteral",
+                                                        token: "5"
+                                                    }
+                                                ],
+                                                initializer: null
                                             }
-                                        },
-                                        dimensions: [
-                                            {
-                                                node: "NumberLiteral",
-                                                token: "5"
-                                            },
-                                            {
-                                                node: "NumberLiteral",
-                                                token: "42"
-                                            },
-                                            {
-                                                node: "SimpleName",
-                                                identifier: "x"
-                                            }
-                                        ],
-                                        initializer: null
-                                    }
-                                }
-                            },
-                            {
-                                node: "VariableDeclarationStatement",
-                                modifiers: [],
-                                type: {
-                                    node: "ArrayType",
-                                    componentType: {
-                                        node: "PrimitiveType",
-                                        primitiveTypeCode: "boolean"
-                                    }
-                                },
-                                fragments: [
-                                    {
-                                        node: "VariableDeclarationFragment",
-                                        name: {
-                                            node: "SimpleName",
-                                            identifier: "c"
-                                        },
-                                        extraDimensions: 0,
-                                        initializer: {
-                                            node: "ArrayCreation",
-                                            type: {
-                                                node: "ArrayType",
-                                                componentType: {
-                                                    node: "PrimitiveType",
-                                                    primitiveTypeCode: "boolean"
-                                                }
-                                            },
-                                            dimensions: [
-                                                {
-                                                    node: "NumberLiteral",
-                                                    token: "42"
-                                                }
-                                            ],
-                                            initializer: null
                                         }
-                                    }
-                                ]
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
                                     },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "ArrayType",
+                                                            componentType: {
+                                                                node: "PrimitiveType",
+                                                                primitiveTypeCode: "long"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                dimensions: [
+                                                    {
+                                                        node: "NumberLiteral",
+                                                        token: "5"
+                                                    },
+                                                    {
+                                                        node: "NumberLiteral",
+                                                        token: "42"
+                                                    }
+                                                ],
+                                                initializer: null
+                                            }
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "ArrayType",
+                                                            componentType: {
+                                                                node: "PrimitiveType",
+                                                                primitiveTypeCode: "float"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                dimensions: [
+                                                    {
+                                                        node: "NumberLiteral",
+                                                        token: "5"
+                                                    },
+                                                    {
+                                                        node: "NumberLiteral",
+                                                        token: "42"
+                                                    },
+                                                    {
+                                                        node: "SimpleName",
+                                                        identifier: "x"
+                                                    }
+                                                ],
+                                                initializer: null
+                                            }
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "ArrayType",
+                                                            componentType: {
+                                                                node: "ArrayType",
+                                                                componentType: {
+                                                                    node: "PrimitiveType",
+                                                                    primitiveTypeCode: "double"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                dimensions: [
+                                                    {
+                                                        node: "NumberLiteral",
+                                                        token: "5"
+                                                    },
+                                                    {
+                                                        node: "NumberLiteral",
+                                                        token: "42"
+                                                    },
+                                                    {
+                                                        node: "SimpleName",
+                                                        identifier: "x"
+                                                    }
+                                                ],
+                                                initializer: null
+                                            }
+                                        }
+                                    },
+                                    {
+                                        node: "VariableDeclarationStatement",
+                                        modifiers: [],
                                         type: {
                                             node: "ArrayType",
                                             componentType: {
-                                                node: "SimpleType",
-                                                name: {
-                                                    node: "SimpleName",
-                                                    identifier: "Hello"
-                                                }
+                                                node: "PrimitiveType",
+                                                primitiveTypeCode: "boolean"
                                             }
                                         },
-                                        dimensions: [],
-                                        initializer: {
-                                            node: "ArrayInitializer",
-                                            expressions: [
-                                                {
-                                                    node: "ClassInstanceCreation",
-                                                    expression: null,
-                                                    typeArguments: [],
-                                                    type: {
-                                                        node: "SimpleType",
-                                                        name: {
-                                                            node: "SimpleName",
-                                                            identifier: "Hello"
-                                                        }
-                                                    },
-                                                    arguments: [],
-                                                    anonymousClassDeclaration: null
+                                        fragments: [
+                                            {
+                                                node: "VariableDeclarationFragment",
+                                                name: {
+                                                    node: "SimpleName",
+                                                    identifier: "c"
                                                 },
-                                                {
-                                                    node: "ClassInstanceCreation",
-                                                    expression: null,
-                                                    typeArguments: [],
+                                                extraDimensions: 0,
+                                                initializer: {
+                                                    node: "ArrayCreation",
                                                     type: {
-                                                        node: "SimpleType",
-                                                        name: {
-                                                            node: "SimpleName",
-                                                            identifier: "Hello"
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "PrimitiveType",
+                                                            primitiveTypeCode: "boolean"
                                                         }
                                                     },
-                                                    arguments: [
+                                                    dimensions: [
                                                         {
                                                             node: "NumberLiteral",
                                                             token: "42"
                                                         }
                                                     ],
-                                                    anonymousClassDeclaration: null
-                                                },
-                                                {
-                                                    node: "ClassInstanceCreation",
-                                                    expression: null,
-                                                    typeArguments: [],
-                                                    type: {
+                                                    initializer: null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
+                                                    node: "ArrayType",
+                                                    componentType: {
                                                         node: "SimpleType",
                                                         name: {
                                                             node: "SimpleName",
                                                             identifier: "Hello"
                                                         }
-                                                    },
-                                                    arguments: [
-                                                        {
-                                                            node: "SimpleName",
-                                                            identifier: "world"
-                                                        }
-                                                    ],
-                                                    anonymousClassDeclaration: null
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "Assignment",
-                                    leftHandSide: {
-                                        node: "SimpleName",
-                                        identifier: "c"
-                                    },
-                                    operator: "=",
-                                    rightHandSide: {
-                                        node: "ArrayCreation",
-                                        type: {
-                                            node: "ArrayType",
-                                            componentType: {
-                                                node: "ArrayType",
-                                                componentType: {
-                                                    node: "SimpleType",
-                                                    name: {
-                                                        node: "QualifiedName",
-                                                        qualifier: {
-                                                            node: "SimpleName",
-                                                            identifier: "Hello"
-                                                        },
-                                                        name: {
-                                                            node: "SimpleName",
-                                                            identifier: "World"
-                                                        }
                                                     }
-                                                }
-                                            }
-                                        },
-                                        dimensions: [],
-                                        initializer: {
-                                            node: "ArrayInitializer",
-                                            expressions: [
-                                                {
-                                                    node: "ArrayInitializer",
-                                                    expressions: [
-                                                        {
-                                                            node: "ClassInstanceCreation",
-                                                            expression: null,
-                                                            typeArguments: [],
-                                                            type: {
-                                                                node: "SimpleType",
-                                                                name: {
-                                                                    node: "SimpleName",
-                                                                    identifier: "Hello"
-                                                                }
-                                                            },
-                                                            arguments: [],
-                                                            anonymousClassDeclaration: null
-                                                        },
-                                                        {
-                                                            node: "ClassInstanceCreation",
-                                                            expression: null,
-                                                            typeArguments: [],
-                                                            type: {
-                                                                node: "SimpleType",
-                                                                name: {
-                                                                    node: "SimpleName",
-                                                                    identifier: "Hello"
-                                                                }
-                                                            },
-                                                            arguments: [
-                                                                {
-                                                                    node: "NumberLiteral",
-                                                                    token: "42"
-                                                                }
-                                                            ],
-                                                            anonymousClassDeclaration: null
-                                                        },
-                                                        {
-                                                            node: "ClassInstanceCreation",
-                                                            expression: null,
-                                                            typeArguments: [],
-                                                            type: {
-                                                                node: "SimpleType",
-                                                                name: {
-                                                                    node: "SimpleName",
-                                                                    identifier: "Hello"
-                                                                }
-                                                            },
-                                                            arguments: [],
-                                                            anonymousClassDeclaration: {
-                                                                node: "AnonymousClassDeclaration",
-                                                                bodyDeclarations: [
-                                                                    {
-                                                                        node: "MethodDeclaration",
-                                                                        modifiers: [
-                                                                            {
-                                                                                node: "MarkerAnnotation",
-                                                                                typeName: {
-                                                                                    node: "SimpleName",
-                                                                                    identifier: "override"
-                                                                                }
-                                                                            }
-                                                                        ],
-                                                                        constructor: true,
-                                                                        typeParameters: [],
-                                                                        returnType2: null,
-                                                                        name: {
-                                                                            node: "SimpleName",
-                                                                            identifier: "world"
-                                                                        },
-                                                                        parameters: [],
-                                                                        extraDimensions: 0,
-                                                                        thrownExceptions: [],
-                                                                        body: {
-                                                                            node: "Block",
-                                                                            statements: []
-                                                                        }
-                                                                    }
-                                                                ]
-                                                            }
-                                                        }
-                                                    ]
                                                 },
-                                                {
+                                                dimensions: [],
+                                                initializer: {
                                                     node: "ArrayInitializer",
                                                     expressions: [
                                                         {
@@ -9304,52 +9128,25 @@
                                                             expression: null,
                                                             typeArguments: [],
                                                             type: {
-                                                                node: "ParameterizedType",
-                                                                type: {
-                                                                    node: "SimpleType",
-                                                                    name: {
-                                                                        node: "SimpleName",
-                                                                        identifier: "Hello"
-                                                                    }
-                                                                },
-                                                                typeArguments: [
-                                                                    {
-                                                                        node: "SimpleType",
-                                                                        name: {
-                                                                            node: "SimpleName",
-                                                                            identifier: "String"
-                                                                        }
-                                                                    }
-                                                                ]
+                                                                node: "SimpleType",
+                                                                name: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "Hello"
+                                                                }
                                                             },
                                                             arguments: [],
-                                                            anonymousClassDeclaration: {
-                                                                node: "AnonymousClassDeclaration",
-                                                                bodyDeclarations: []
-                                                            }
+                                                            anonymousClassDeclaration: null
                                                         },
                                                         {
                                                             node: "ClassInstanceCreation",
                                                             expression: null,
                                                             typeArguments: [],
                                                             type: {
-                                                                node: "ParameterizedType",
-                                                                type: {
-                                                                    node: "SimpleType",
-                                                                    name: {
-                                                                        node: "SimpleName",
-                                                                        identifier: "Hello"
-                                                                    }
-                                                                },
-                                                                typeArguments: [
-                                                                    {
-                                                                        node: "SimpleType",
-                                                                        name: {
-                                                                            node: "SimpleName",
-                                                                            identifier: "String"
-                                                                        }
-                                                                    }
-                                                                ]
+                                                                node: "SimpleType",
+                                                                name: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "Hello"
+                                                                }
                                                             },
                                                             arguments: [
                                                                 {
@@ -9380,71 +9177,275 @@
                                                         }
                                                     ]
                                                 }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "Assignment",
+                                            leftHandSide: {
+                                                node: "SimpleName",
+                                                identifier: "c"
+                                            },
+                                            operator: "=",
+                                            rightHandSide: {
+                                                node: "ArrayCreation",
+                                                type: {
+                                                    node: "ArrayType",
+                                                    componentType: {
+                                                        node: "ArrayType",
+                                                        componentType: {
+                                                            node: "SimpleType",
+                                                            name: {
+                                                                node: "QualifiedName",
+                                                                qualifier: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "Hello"
+                                                                },
+                                                                name: {
+                                                                    node: "SimpleName",
+                                                                    identifier: "World"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                dimensions: [],
+                                                initializer: {
+                                                    node: "ArrayInitializer",
+                                                    expressions: [
+                                                        {
+                                                            node: "ArrayInitializer",
+                                                            expressions: [
+                                                                {
+                                                                    node: "ClassInstanceCreation",
+                                                                    expression: null,
+                                                                    typeArguments: [],
+                                                                    type: {
+                                                                        node: "SimpleType",
+                                                                        name: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "Hello"
+                                                                        }
+                                                                    },
+                                                                    arguments: [],
+                                                                    anonymousClassDeclaration: null
+                                                                },
+                                                                {
+                                                                    node: "ClassInstanceCreation",
+                                                                    expression: null,
+                                                                    typeArguments: [],
+                                                                    type: {
+                                                                        node: "SimpleType",
+                                                                        name: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "Hello"
+                                                                        }
+                                                                    },
+                                                                    arguments: [
+                                                                        {
+                                                                            node: "NumberLiteral",
+                                                                            token: "42"
+                                                                        }
+                                                                    ],
+                                                                    anonymousClassDeclaration: null
+                                                                },
+                                                                {
+                                                                    node: "ClassInstanceCreation",
+                                                                    expression: null,
+                                                                    typeArguments: [],
+                                                                    type: {
+                                                                        node: "SimpleType",
+                                                                        name: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "Hello"
+                                                                        }
+                                                                    },
+                                                                    arguments: [],
+                                                                    anonymousClassDeclaration: {
+                                                                        node: "AnonymousClassDeclaration",
+                                                                        bodyDeclarations: [
+                                                                            {
+                                                                                node: "MethodDeclaration",
+                                                                                modifiers: [
+                                                                                    {
+                                                                                        node: "MarkerAnnotation",
+                                                                                        typeName: {
+                                                                                            node: "SimpleName",
+                                                                                            identifier: "override"
+                                                                                        }
+                                                                                    }
+                                                                                ],
+                                                                                constructor: true,
+                                                                                typeParameters: [],
+                                                                                returnType2: null,
+                                                                                name: {
+                                                                                    node: "SimpleName",
+                                                                                    identifier: "world"
+                                                                                },
+                                                                                parameters: [],
+                                                                                extraDimensions: 0,
+                                                                                thrownExceptions: [],
+                                                                                body: {
+                                                                                    node: "Block",
+                                                                                    statements: []
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            node: "ArrayInitializer",
+                                                            expressions: [
+                                                                {
+                                                                    node: "ClassInstanceCreation",
+                                                                    expression: null,
+                                                                    typeArguments: [],
+                                                                    type: {
+                                                                        node: "ParameterizedType",
+                                                                        type: {
+                                                                            node: "SimpleType",
+                                                                            name: {
+                                                                                node: "SimpleName",
+                                                                                identifier: "Hello"
+                                                                            }
+                                                                        },
+                                                                        typeArguments: [
+                                                                            {
+                                                                                node: "SimpleType",
+                                                                                name: {
+                                                                                    node: "SimpleName",
+                                                                                    identifier: "String"
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    arguments: [],
+                                                                    anonymousClassDeclaration: {
+                                                                        node: "AnonymousClassDeclaration",
+                                                                        bodyDeclarations: []
+                                                                    }
+                                                                },
+                                                                {
+                                                                    node: "ClassInstanceCreation",
+                                                                    expression: null,
+                                                                    typeArguments: [],
+                                                                    type: {
+                                                                        node: "ParameterizedType",
+                                                                        type: {
+                                                                            node: "SimpleType",
+                                                                            name: {
+                                                                                node: "SimpleName",
+                                                                                identifier: "Hello"
+                                                                            }
+                                                                        },
+                                                                        typeArguments: [
+                                                                            {
+                                                                                node: "SimpleType",
+                                                                                name: {
+                                                                                    node: "SimpleName",
+                                                                                    identifier: "String"
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    arguments: [
+                                                                        {
+                                                                            node: "NumberLiteral",
+                                                                            token: "42"
+                                                                        }
+                                                                    ],
+                                                                    anonymousClassDeclaration: null
+                                                                },
+                                                                {
+                                                                    node: "ClassInstanceCreation",
+                                                                    expression: null,
+                                                                    typeArguments: [],
+                                                                    type: {
+                                                                        node: "SimpleType",
+                                                                        name: {
+                                                                            node: "SimpleName",
+                                                                            identifier: "Hello"
+                                                                        }
+                                                                    },
+                                                                    arguments: [
+                                                                        {
+                                                                            node: "SimpleName",
+                                                                            identifier: "world"
+                                                                        }
+                                                                    ],
+                                                                    anonymousClassDeclaration: null
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "MethodInvocation",
+                                            expression: null,
+                                            typeArguments: [],
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "x"
+                                            },
+                                            arguments: []
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "MethodInvocation",
+                                            expression: null,
+                                            typeArguments: [],
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "x"
+                                            },
+                                            arguments: [
+                                                {
+                                                    node: "NumberLiteral",
+                                                    token: "42"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        node: "ExpressionStatement",
+                                        expression: {
+                                            node: "MethodInvocation",
+                                            expression: null,
+                                            typeArguments: [],
+                                            name: {
+                                                node: "SimpleName",
+                                                identifier: "x"
+                                            },
+                                            arguments: [
+                                                {
+                                                    node: "SimpleName",
+                                                    identifier: "y"
+                                                },
+                                                {
+                                                    node: "NumberLiteral",
+                                                    token: "42"
+                                                }
                                             ]
                                         }
                                     }
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "MethodInvocation",
-                                    expression: null,
-                                    typeArguments: [],
-                                    name: {
-                                        node: "SimpleName",
-                                        identifier: "x"
-                                    },
-                                    arguments: []
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "MethodInvocation",
-                                    expression: null,
-                                    typeArguments: [],
-                                    name: {
-                                        node: "SimpleName",
-                                        identifier: "x"
-                                    },
-                                    arguments: [
-                                        {
-                                            node: "NumberLiteral",
-                                            token: "42"
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                node: "ExpressionStatement",
-                                expression: {
-                                    node: "MethodInvocation",
-                                    expression: null,
-                                    typeArguments: [],
-                                    name: {
-                                        node: "SimpleName",
-                                        identifier: "x"
-                                    },
-                                    arguments: [
-                                        {
-                                            node: "SimpleName",
-                                            identifier: "y"
-                                        },
-                                        {
-                                            node: "NumberLiteral",
-                                            token: "42"
-                                        }
-                                    ]
-                                }
+                                ]
                             }
-                        ]
-                    }
+                        }
+                    ]
                 }
             ]
         }
-    ]
-}
     );
     });
   </script>

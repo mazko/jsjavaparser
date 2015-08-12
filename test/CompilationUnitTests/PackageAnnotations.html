@@ -8,15 +8,16 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../qunit/qunit-1.18.0.js"></script>
+  <script src="../qunit/multiline/browser.js"></script>
   <script src="../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 10;
 
     test("package ws Marker Annotations", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @hello
         package hello.world;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -56,10 +57,10 @@
     });
 
     test("package ws Normal Empty Annotations", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @RequestForEnhancement()
         package hello.world;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -102,7 +103,7 @@
     });
 
     test("package ws Normal Annotations", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @RequestForEnhancement(
             id = 2868724,
             synopsis = "Provide time-travel functionality",
@@ -110,7 +111,7 @@
             date = "4/1/2004"
         )
         package hello.world;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -196,10 +197,10 @@
     });
 
     test("package ws Single-Element Annotations", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Copyright("2002 Yoyodyne Propulsion Systems, Inc.")
         package hello;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -236,10 +237,10 @@
     });
 
     test("array-valued single-element annotation", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Endorsers({"Children", "Unscrupulous dentists"})
         package hello;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -285,10 +286,10 @@
     });
 
     test("array-valued empty annotation", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Endorsers({})
         package hello;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -327,10 +328,10 @@
     });
 
     test("single-element array-valued single-element annotation", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Endorsers("Epicurus")
         package hello;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -367,10 +368,10 @@
     });
 
     test("single-element annotation that contains a normal annotation", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Author(@Name(first = "Joe", last = "Hacker"))
         package hello;
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,

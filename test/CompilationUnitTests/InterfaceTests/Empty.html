@@ -8,6 +8,7 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../../qunit/qunit-1.18.0.js"></script>
+  <script src="../../qunit/multiline/browser.js"></script>
   <script src="../../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 1000;
@@ -255,10 +256,10 @@
     });
 
     test("empty interface ws modifiers ws annotation", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         @Author(@Name(first = "Joe", last = "Hacker"))
         protected interface Test {}
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,

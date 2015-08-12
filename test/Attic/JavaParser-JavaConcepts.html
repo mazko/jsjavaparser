@@ -8,12 +8,13 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../qunit/qunit-1.18.0.js"></script>
+  <script src="../qunit/multiline/browser.js"></script>
   <script src="../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 100;
 
     test("JavaConcepts.java", function(assert) {
-      var src =  `
+      var src = multiline(function(){/*
         package japa.bdd.samples;
 
         import com.github.javaparser.JavaParser;
@@ -415,7 +416,7 @@
         interface XXX extends Serializable, Cloneable {
         }
 
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
