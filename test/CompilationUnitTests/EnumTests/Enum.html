@@ -8,6 +8,7 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="../../qunit/qunit-1.18.0.js"></script>
+  <script src="../../qunit/multiline/browser.js"></script>
   <script src="../../../lib/javaparser7.js"></script>
   <script>
     QUnit.dump.maxDepth = 1000;
@@ -201,7 +202,7 @@
     });
 
     test("empty enum ws body ws members", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         enum Color {
             RED, GREEN, BLUE;
             private  int value;
@@ -209,7 +210,7 @@
             static Object[] test;
             Object[][] testdims[];
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -396,14 +397,14 @@
     });
 
     test("Enum Constants ws Class Bodies", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         enum Operation {
             PLUS { public double a;},
             MINUS {int b;},
             TIMES {Object c;},
             DIVIDED_BY{;};
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
@@ -580,55 +581,43 @@
     });
 
     test("Enum Constants ws arguments", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         enum Coin {
             T,PENNY(1L), NICKEL(), DIME(0x10,-42), QUARTER(0b11), 
             R(0222), R1(true), R5(false), R3(null), R4(3.14), T('a'), 
             T1("hello\u1984"), T34(-0x1.8p1);
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
         {
             node: "CompilationUnit",
             package: null,
-            imports: [
-
-            ],
+            imports: [],
             types: [
                 {
                     node: "EnumDeclaration",
-                    modifiers: [
-
-                    ],
+                    modifiers: [],
                     name: {
                         node: "SimpleName",
                         identifier: "Coin"
                     },
-                    superInterfaceTypes: [
-
-                    ],
+                    superInterfaceTypes: [],
                     enumConstants: [
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "T"
                             },
-                            arguments: [
-
-                            ],
+                            arguments: [],
                             anonymousClassDeclaration: null
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "PENNY"
@@ -643,23 +632,17 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "NICKEL"
                             },
-                            arguments: [
-
-                            ],
+                            arguments: [],
                             anonymousClassDeclaration: null
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "DIME"
@@ -682,9 +665,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "QUARTER"
@@ -699,9 +680,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "R"
@@ -716,9 +695,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "R1"
@@ -733,9 +710,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "R5"
@@ -750,9 +725,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "R3"
@@ -766,9 +739,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "R4"
@@ -783,9 +754,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "T"
@@ -800,9 +769,7 @@
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "T1"
@@ -810,16 +777,14 @@
                             arguments: [
                                 {
                                     node: "StringLiteral",
-                                    escapedValue: "\"hello\u1984\""
+                                    escapedValue: "\"hello\\u1984\""
                                 }
                             ],
                             anonymousClassDeclaration: null
                         },
                         {
                             node: "EnumConstantDeclaration",
-                            modifiers: [
-
-                            ],
+                            modifiers: [],
                             name: {
                                 node: "SimpleName",
                                 identifier: "T34"
@@ -837,9 +802,7 @@
                             anonymousClassDeclaration: null
                         }
                     ],
-                    bodyDeclarations: [
-
-                    ]
+                    bodyDeclarations: []
                 }
             ]
         }
@@ -847,11 +810,11 @@
     });
 
     test("Enum Constants ws annotation ws arguments", function(assert) {
-      var src = `
+      var src = multiline(function(){/*
         enum Coin {
             @annotation T,PENNY(1L), NICKEL(), DIME(-42), QUARTER(0b11);
         }
-      `;
+      */});
       assert.deepEqual(
         JavaParser.parse(src)
         ,
