@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+<meta charset="utf-8" />
+<title>Java Parser</title>
+<link rel="stylesheet" type="text/css" href="assets/built-editor/built-editor.css"/>
+<link rel="stylesheet" type="text/css" href="assets/style.css">
+<link rel="stylesheet" type="text/css" href="assets/esprima.foundation.min.css">
+<style>
+textarea {
+  white-space: pre;
+  overflow: scroll;
+  font-size: 10pt;
+  font-family: 'Droid Sans Mono', Menlo, Consolas, 'Courier New', Courier, monospace, sans-serif;
+}
+.subheader {
+  text-align: center;
+}
+</style>
+
+<script src="assets/built-editor/built-editor.min.js"></script>
+<script src="assets/built-editor/stylers/text_x-java-source/syntax.min.js"></script>
+
+</head>
+<body> 
+  <hr/>
+  <!-- Title and subtitle -->
+  <h5 class="subheader">Java parser and <i>Abstract Syntax Tree</i> demo</h5>
+  <hr/>
+  <!-- Main content -->
+  <div class="row">
+    <div class="six columns">
+      <pre id="editor" class="editor" data-editor-lang="java" style="height: 450px">
+package js.java.parser;
+
+import static java.lang.System.out;
+
+import java.util.*;
+
+public class HelloWorld {
+  public static void main(final String[] args) {
+    final List&lt;String&gt; ls = new ArrayList&lt;&gt;();
+    ls.addAll(Arrays.asList("Hello", "World!"));
+    out.println(ls);
+  }
+}
+      </pre>
+      <div id="info" class="alert-box secondary">Ready.</div>
+    </div>
+    <div class="six columns">
+      <textarea wrap="off" id="syntax" rows="30" readonly>Something Wrong !!!</textarea>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="row copyright">
+    <div class="six columns">
+      <p>Created and maintained by 
+      <a href="mailto:o.mazko@mail.ru?subject=jsjavaparser&amp;body=Hello%2C%20Oleg%20Mazko%20%21" onmouseover="var split = this.href.split('?'); split[0] = split[0].replace('%20%5Bat%5D%20','@'); this.href = split.join('?');" rel="nofollow">Oleg Mazko
+      </a>
+      </p>
+    </div>
+    <div class="six columns">
+      <ul class="link-list right">
+        <li><a href="https://github.com/mazko/jsjavaparser">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="lib/javaparser7.js"></script>
+  <script src="parse.js"></script>
+</body>
+</html>
