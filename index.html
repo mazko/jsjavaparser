@@ -20,15 +20,12 @@ textarea {
 }
 </style>
 
-<script src="assets/built-editor/built-editor.min.js"></script>
-<script src="assets/built-editor/stylers/text_x-java-source/syntax.min.js"></script>
-
 </head>
 <body> 
-  <hr/>
-  <!-- Title and subtitle -->
+  <!-- Title -->
+  <div class="row title">
   <h5 class="subheader">Java parser and <i>Abstract Syntax Tree</i> demo</h5>
-  <hr/>
+  </div>
   <!-- Main content -->
   <div class="row">
     <div class="six columns">
@@ -50,7 +47,7 @@ public class HelloWorld {
       <div id="info" class="alert-box secondary">Ready.</div>
     </div>
     <div class="six columns">
-      <textarea wrap="off" id="syntax" rows="30" readonly>Something Wrong !!!</textarea>
+      <textarea wrap="off" id="syntax" rows="30" readonly>Loading...</textarea>
     </div>
   </div>
 
@@ -70,6 +67,9 @@ public class HelloWorld {
   </div>
 
   <script src="lib/javaparser7.js"></script>
+  <script src="assets/built-editor/built-editor.min.js"></script>
+  <script src="assets/built-editor/stylers/text_x-java-source/syntax.min.js"></script>
   <script src="parse.js"></script>
+
 </body>
 </html>

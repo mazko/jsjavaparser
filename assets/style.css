@@ -11,9 +11,16 @@ div.panel ul {
 }
 
 div.row.copyright {
-    margin-top: 44px;
+    margin-top: 33px;
     padding-top: 11px;
     border-top: 1px solid #ddd;
+}
+
+div.row.title {
+    margin-top: 33px;
+    margin-bottom: 33px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .code {
