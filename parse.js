@@ -23,6 +23,8 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+"use strict";
+
 var parseId;
 
 function id(i) {
@@ -52,7 +54,7 @@ function parse(delay) {
             id('info').className = 'alert-box alert';
         }
 
-        el = id('syntax').value = str;
+        id('syntax').value = str;
 
         parseId = undefined;
     }, delay || 811);
