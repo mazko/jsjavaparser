@@ -402,12 +402,12 @@
 //-------------------------------------------------------------------------
 
 CompilationUnit
-    = Spacing package:PackageDeclaration? imports:ImportDeclaration* types:TypeDeclaration* EOT
+    = Spacing pack:PackageDeclaration? imports:ImportDeclaration* types:TypeDeclaration* EOT
     {
       return {
         node:   'CompilationUnit',
         types:   skipNulls(types),
-        package: package,
+        package: pack,
         imports: skipNulls(imports)
       };
     }
@@ -423,12 +423,12 @@ PackageDeclaration
     }
 
 ImportDeclaration
-    = IMPORT static:STATIC? name:QualifiedIdentifier asterisk:(DOT STAR)? SEMI
+    = IMPORT stat:STATIC? name:QualifiedIdentifier asterisk:(DOT STAR)? SEMI
     {
       return {
         node:    'ImportDeclaration',
         name:     name,
-        static:   !!static,
+        static:   !!stat,
         onDemand: !!extractOptional(asterisk, 1)
       };
     }
