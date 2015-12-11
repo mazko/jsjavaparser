@@ -25,45 +25,49 @@
 
 "use strict";
 
-var parseId;
+(function() {
 
-function id(i) {
-    return document.getElementById(i);
-}
+    var parseId;
 
-function parse(delay) {
-    if (parseId) {
-        window.clearTimeout(parseId);
+    function id(i) {
+        return document.getElementById(i);
     }
 
-    parseId = window.setTimeout(function () {
-        var code, result, str;
-
-        code = window.editor.getText();
-        id('info').className = 'alert-box secondary';
-
-        try {
-            result = JavaParser.parse(code);
-            str = JSON.stringify(result, null, 4);
-            id('info').innerHTML = 'No error';
-        } catch (err) {
-            str = err.name === 'SyntaxError' 
-                ? "Location: " + JSON.stringify(err.location, null, 4) + "\n" + err
-                : err.name + ': ' + err.message;
-            id('info').innerHTML  = str;
-            id('info').className = 'alert-box alert';
+    function parse(delay) {
+        if (parseId) {
+            window.clearTimeout(parseId);
         }
 
-        id('syntax').value = str;
+        parseId = window.setTimeout(function () {
+            var code, result, str;
 
-        parseId = undefined;
-    }, delay || 811);
-}
+            code = window.editor.getText();
+            id('info').className = 'alert-box secondary';
 
-window.onload = function () {
-    require(["orion/editor/edit"], function(edit) {
-       window.editor = edit({className: "editor"});
-       window.editor.getTextView().getModel().addEventListener("Changed", function () { parse(); });
-       parse(42);
-    });
-};
+            try {
+                result = JavaParser.parse(code);
+                str = JSON.stringify(result, null, 4);
+                id('info').innerHTML = 'No error';
+            } catch (err) {
+                str = err.name === 'SyntaxError' 
+                    ? "Location: " + JSON.stringify(err.location, null, 4) + "\n" + err
+                    : err.name + ': ' + err.message;
+                id('info').innerHTML  = str;
+                id('info').className = 'alert-box alert';
+            }
+
+            id('syntax').value = str;
+
+            parseId = undefined;
+        }, delay || 811);
+    }
+
+    window.onload = function () {
+        require(["orion/editor/edit"], function(edit) {
+           window.editor = edit({className: "editor"});
+           window.editor.getTextView().getModel().addEventListener("Changed", function () { parse(); });
+           parse(42);
+        });
+    };
+
+})();
