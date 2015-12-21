@@ -1,4 +1,7 @@
 {
+	"name": "jsjavaparser",
+	"main": "lib/javaparser7.js",
+	"version": "0.1.0",
 	"devDependencies": {
 	  "grunt": "~0.4.5",
 	  "grunt-cli": "~0.1",
