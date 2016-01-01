@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="../qunit/qunit-1.18.0.css">
-</head>
-<body>
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
-  <script src="../qunit/qunit-1.18.0.js"></script>
-  <script src="../qunit/multiline/browser.js"></script>
-  <script src="../../lib/javaparser7.js"></script>
-  <script>
-    QUnit.dump.maxDepth = 100;
-
     test("default class modifier", function(assert) {
       var src = multiline(function(){/*
         /*******************************************************************************
@@ -32404,6 +32389,3 @@
       }
     );
     });
-  </script>
-</body>
-</html>

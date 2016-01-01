@@ -1,4 +1,4 @@
-# JavaScript Java Parser [![Build Status](https://travis-ci.org/mazko/jsjavaparser.svg?branch=master)](https://travis-ci.org/mazko/jsjavaparser)
+# JavaScript Java Parser [![Build Status](https://travis-ci.org/mazko/jsjavaparser.svg?branch=master)](https://travis-ci.org/mazko/jsjavaparser) [![Coverage Status](https://coveralls.io/repos/mazko/jsjavaparser/badge.svg?branch=master&service=github)](https://coveralls.io/github/mazko/jsjavaparser?branch=master)
 
 - [Online Demo](http://mazko.github.io/jsjavaparser)
 
