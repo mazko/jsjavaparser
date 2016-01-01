@@ -6,6 +6,6 @@
     "grunt-coveralls": "^1.0.0"
   },
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "travis_wait grunt travis --verbose"
   }
 }
