@@ -1,4 +1,4 @@
-    test("default class modifier", function(assert) {
+    test("Eclipse ASTFlattener.java", function(assert) {
       var src = multiline(function(){/*
         /*******************************************************************************
          * Copyright (c) 2000, 2014 IBM Corporation and others.
