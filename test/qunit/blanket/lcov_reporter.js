@@ -36,6 +36,13 @@
         }
         for (var filename in coverageData.files) {
           var data = coverageData.files[filename];
+          // jssnowball patch
+          if (typeof options !== 'undefined' && typeof options.strip_file_name !== 'undefined'){
+            if (options.strip_file_name) {
+              filename = filename.replace(/^(file|ftp|https?):\/\//, '');
+            }
+          }
+          // end
           appendHtml(filename,data,toHTML);
         }
     };
