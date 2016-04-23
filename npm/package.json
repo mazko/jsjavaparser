@@ -1,0 +1,28 @@
+{
+  "name": "java-parser",
+  "version": "0.0.1",
+  "description": "Java1.7 parser",
+  "scripts": {
+    "prepublish": "cp ../lib/javaparser7.js ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mazko/jsjavaparser.git"
+  },
+  "keywords": [
+    "java",
+    "parser"
+  ],
+  "author": "Oleg Mazko",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/mazko/jsjavaparser/issues"
+  },
+  "main": "javaparser7.js",
+  "bin": {
+    "java-parser": "./cmd.js"
+  },
+  "devDependencies": {
+    "pegjs": "^0.9.0"
+  }
+}
