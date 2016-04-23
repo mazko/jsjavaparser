@@ -9,3 +9,5 @@
 - [PEG.js](http://pegjs.org/) Grammar 
 
 - [Java Tool](tools/EclipseAST/run.sh) with JSON AST output for test purposes
+
+- BUILD: ```cd npm && npm i && npm run build```
