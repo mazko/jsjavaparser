@@ -4,7 +4,8 @@
   "description": "Java1.7 parser",
   "scripts": {
     "prepublish": "cp ../lib/javaparser7.js .",
-    "build": "node_modules/pegjs/bin/pegjs < ../src/Java.1.7.pegjs | node_modules/umd/bin/cli.js JavaParser -c > ../lib/javaparser7.js"
+    "build": "node_modules/pegjs/bin/pegjs < ../src/Java.1.7.pegjs | node_modules/umd/bin/cli.js JavaParser -c > ../lib/javaparser7.js",
+    "build-min": "npm build && node_modules/uglify-js/bin/uglifyjs ../lib/javaparser7.js -o ../lib/javaparser7.min.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "pegjs": "^0.9.0",
+    "uglify-js": "^2.6.2",
     "umd": "^3.0.1"
   }
 }
