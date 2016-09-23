@@ -1,6 +1,6 @@
 {
   "name": "java-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Java1.7 parser",
   "scripts": {
     "prepublish": "cp ../lib/javaparser7.js .",
@@ -25,8 +25,8 @@
     "java-parser": "./cmd.js"
   },
   "devDependencies": {
-    "pegjs": "^0.9.0",
-    "uglify-js": "^2.6.2",
+    "pegjs": "^0.10.0",
+    "uglify-js": "^2.7.3",
     "umd": "^3.0.1"
   }
 }

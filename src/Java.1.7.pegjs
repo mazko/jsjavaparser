@@ -1197,8 +1197,8 @@ CastExpression
 Primary
     = ParExpression
     / args:NonWildcardTypeArguments 
-      ret:(ExplicitGenericInvocationSuffix / THIS args:Arguments 
-      { return { node: 'ConstructorInvocation', arguments: args, typeArguments: [] }; })
+      ret:(ExplicitGenericInvocationSuffix / THIS args_r:Arguments 
+      { return { node: 'ConstructorInvocation', arguments: args_r, typeArguments: [] }; })
     { 
       if (ret.typeArguments.length) return TODO(/* Ugly ! */);
       ret.typeArguments = args;
