@@ -871,11 +871,8 @@
 
         }
          */}).replace(/\*\\\//g, '*/');
-      console.log('IGNORE ME: Danish parse started (may cause travis timeout)...');
-      var test_ast = JavaParser.parse(src);
-      console.log('IGNORE ME:Danish parse ended!');
       assert.deepEqual(
-        test_ast
+        JavaParser.parse(src)
         ,
         {
             node: "CompilationUnit",

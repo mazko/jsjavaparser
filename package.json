@@ -6,7 +6,7 @@
     "grunt-coveralls": "^1.0.0"
   },
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "travis_wait 30 grunt travis --verbose"
   },
   "name": "jsjavaparser",
   "version": "0.1.0"
