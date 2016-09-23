@@ -5,6 +5,9 @@ branches:
 
 language: node_js
 node_js:
-  - "iojs"
+  - "stable"
+
+script:
+  - travis_wait 30 grunt travis --verbose
 
 after_success: grunt coveralls
